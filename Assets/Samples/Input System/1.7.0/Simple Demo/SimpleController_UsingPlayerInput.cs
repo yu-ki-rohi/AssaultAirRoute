@@ -53,6 +53,24 @@ public class SimpleController_UsingPlayerInput : MonoBehaviour
         }
     }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                Debug.Log("Jump");
+                break;
+
+            case InputActionPhase.Started:
+               
+                break;
+
+            case InputActionPhase.Canceled:
+               
+                break;
+        }
+    }
+
     public void OnGUI()
     {
         if (m_Charging)
