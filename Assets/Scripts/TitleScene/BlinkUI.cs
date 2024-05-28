@@ -1,19 +1,50 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BlinkUi : MonoBehaviour
 {
+    public bool UIBlinkdisappear = false;
     public TextMeshProUGUI tmpText;
     public float blinkDuration = 1.0f;  // 点滅の間隔
+    GraphicRaycaster raycaster;
+    EventSystem eventSystem;
 
-    void Start()
+    private void Start()
     {
+        raycaster = GetComponent<GraphicRaycaster>();
+        eventSystem = FindObjectOfType<EventSystem>();
         // コルーチンを開始する
         StartCoroutine(Blink());
     }
 
-    IEnumerator Blink()
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            PointerEventData pointerEventData = new PointerEventData(eventSystem);
+            pointerEventData.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            raycaster.Raycast(pointerEventData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject.CompareTag("UI"))
+                {
+                    // ヒットしたオブジェクトを非表示にする
+                    Debug.Log("Clicked on: " + result.gameObject.name);
+                    result.gameObject.SetActive(false);
+                    UIBlinkdisappear = true;
+                }
+            }
+        }
+    }
+
+    private IEnumerator Blink()
     {
         while (true)
         {
@@ -28,4 +59,5 @@ public class BlinkUi : MonoBehaviour
         }
     }
 }
+
 
