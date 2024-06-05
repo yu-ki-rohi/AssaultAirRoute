@@ -10,6 +10,8 @@ public class Rail : MonoBehaviour
 {
     [SerializeField]
     private Transform[] _transforms;
+    private Vector3[] _positions;
+
     private void OnDrawGizmos()
     {
         if (_transforms == null || _transforms.Length <= 1)
@@ -24,12 +26,16 @@ public class Rail : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _positions = _transforms.Select(t => t.position).ToArray();
+    }
+
     public Vector3 GetPos(float time)
     {
         if (_transforms == null || _transforms.Length <= 1)
             return _transforms[0].position;
         time = Mathf.Clamp01(time);
-        var a = _transforms.Select(t => t.position).ToArray();
-        return BezierCurve.Eval(a, time);
+        return BezierCurve.Eval(_positions, time);
     }
 }
