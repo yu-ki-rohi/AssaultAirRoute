@@ -26,8 +26,19 @@ public class CharacterBase : MonoBehaviour
         
     }
 
+    // ダメージを受ける処理
+    // 威力を取得するために、引数でColliderを渡してください
     protected void Damage(Collider collider)
     {
+        // colliderの威力を受け取る処理
+        // ここではとりあえず仕様書に則り10
+        int damage = 10;
 
+        // HP減少処理
+        _currentHp -= damage;
+        if(_currentHp < 0)
+        {
+            _currentHp = 0;
+        }
     }
 }
