@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        // Å‰‚Ìƒ^[ƒQƒbƒg‚ğİ’è
+        // æœ€åˆã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
         GameObject enemy = GameObject.FindWithTag("Enemy");
         if (enemy != null)
         {
@@ -21,13 +21,13 @@ public class Bullet : MonoBehaviour
     {
         if (target != null)
         {
-            // “G‚Ì•ûŒü‚ÉŒü‚©‚Á‚Ä’e‚ğˆÚ“®
+            // æ•µã®æ–¹å‘ã«å‘ã‹ã£ã¦å¼¾ã‚’ç§»å‹•
             Vector3 direction = (target.position - transform.position).normalized;
             transform.position += direction * speed * Time.deltaTime;
         }
         else
         {
-            // ƒ^[ƒQƒbƒg‚ª‚È‚¢ê‡‚Í‚»‚Ì‚Ü‚Ü‘Oi
+            // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒãªã„å ´åˆã¯ãã®ã¾ã¾å‰é€²
             transform.position += transform.forward * speed * Time.deltaTime;
         }
     }

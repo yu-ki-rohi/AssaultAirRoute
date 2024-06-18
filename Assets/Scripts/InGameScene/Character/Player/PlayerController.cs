@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerController: MonoBehaviour
 {
     [SerializeField]
-    int HP = 100;       //ƒvƒŒƒCƒ„[‚ÌHP
+    int HP = 100;       //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HP
     [SerializeField]
-    int Attack = 10;    //ƒvƒŒƒCƒ„[‚ÌUŒ‚—Í
-    public float acceleration = 50f;
+    int Attack = 10;    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒåŠ›
+    public float acceleration = 5f;//åŠ é€Ÿåº¦
     private Rigidbody rb;
 
     void Start()
@@ -38,8 +38,8 @@ public class PlayerController: MonoBehaviour
         rb.AddForce(movement * acceleration, ForceMode.Acceleration);
 
         Vector3 newPosition = transform.position;
-        newPosition.x = Mathf.Clamp(newPosition.x, -3.84f, 3.49f); // ‰æ–Ê‚Ì¶‰E’[‚ÌÀ•W‚É§ŒÀ
-        newPosition.y = Mathf.Clamp(newPosition.y, -0.8f, 1.66f); // ‰æ–Ê‚Ìã‰º’[‚ÌÀ•W‚É§ŒÀ
+        newPosition.x = Mathf.Clamp(newPosition.x, -3.84f, 3.49f); // ç”»é¢ã®å·¦å³ç«¯ã®åº§æ¨™ã«åˆ¶é™
+        newPosition.y = Mathf.Clamp(newPosition.y, -0.8f, 1.66f); // ç”»é¢ã®ä¸Šä¸‹ç«¯ã®åº§æ¨™ã«åˆ¶é™
         transform.position = newPosition;
 
     }
