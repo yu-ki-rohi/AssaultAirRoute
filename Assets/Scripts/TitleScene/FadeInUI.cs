@@ -11,6 +11,7 @@ public class FadeInUI : MonoBehaviour
     private CanvasGroup canvasGroup; // 透明度を管理するCanvasGroup
     [SerializeField]
     private MoveUIToTarget UF;
+    public bool TitleSel = false;
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class FadeInUI : MonoBehaviour
 
             // フェードイン処理
             canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, 1.0f, fadeInSpeed * Time.deltaTime);
+            TitleSel = true;
 
             // フェードインが完了したら、移動フラグを立てる
             if (canvasGroup.alpha >= 0.99f && uiElement.anchoredPosition == targetPosition)

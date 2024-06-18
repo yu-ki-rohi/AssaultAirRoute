@@ -223,7 +223,7 @@ Transform:
   m_GameObject: {fileID: 587443620}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 38.9, z: 0}
+  m_LocalPosition: {x: 0, y: 2.8, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -241,11 +241,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d30316d560e0b5439a2680aeb50ae76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition2: {x: 0, y: 14.5, z: 0}
-  slideSpeed2: 37.3
-  floatSpeed2: 1.27
-  floatAmount2: 0.34
-  minSpeed2: 2
+  targetPosition: {x: 0, y: -24.6, z: 0}
+  slideSpeed: 100
+  floatSpeed: 2.71
+  floatAmount: 0.34
+  minSpeed: 1.46
+  FI: {fileID: 1097992785}
 --- !u!1 &687913522
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +355,7 @@ MonoBehaviour:
   floatSpeed: 1.27
   floatAmount: 0.34
   minSpeed: 2
+  FI: {fileID: 1097992785}
 --- !u!4 &687913527
 Transform:
   m_ObjectHideFlags: 0
@@ -682,6 +684,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 427}
   initialPosition: {x: 500, y: 427}
   UF: {fileID: 1097992782}
+  TitleSel: 0
 --- !u!1 &1169416966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,6 +1390,7 @@ MonoBehaviour:
   floatSpeed: 1.27
   floatAmount: 0.34
   minSpeed: 2
+  FI: {fileID: 1097992785}
 --- !u!1 &1500654744
 GameObject:
   m_ObjectHideFlags: 0
