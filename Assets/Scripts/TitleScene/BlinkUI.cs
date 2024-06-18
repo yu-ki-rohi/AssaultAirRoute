@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BlinkUi : MonoBehaviour
+public class BlinkUI : MonoBehaviour
 {
     public bool UIBlinkdisappear = false;
     public TextMeshProUGUI tmpText;
-    public float blinkDuration = 1.0f;  // “_–Å‚ÌŠÔŠu
+    public float blinkDuration = 1.0f;  // ç‚¹æ»…ã®é–“éš”
     GraphicRaycaster raycaster;
     EventSystem eventSystem;
 
@@ -17,7 +17,7 @@ public class BlinkUi : MonoBehaviour
     {
         raycaster = GetComponent<GraphicRaycaster>();
         eventSystem = FindObjectOfType<EventSystem>();
-        // ƒRƒ‹[ƒ`ƒ“‚ğŠJn‚·‚é
+        // ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’é–‹å§‹ã™ã‚‹
         StartCoroutine(Blink());
     }
 
@@ -35,10 +35,11 @@ public class BlinkUi : MonoBehaviour
             {
                 if (result.gameObject.CompareTag("UI"))
                 {
-                    // ƒqƒbƒg‚µ‚½ƒIƒuƒWƒFƒNƒg‚ğ”ñ•\¦‚É‚·‚é
+                    // ãƒ’ãƒƒãƒˆã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹
                     Debug.Log("Clicked on: " + result.gameObject.name);
                     result.gameObject.SetActive(false);
                     UIBlinkdisappear = true;
+                    Cursor.visible = false; // Hide the cursor
                 }
             }
         }
@@ -48,7 +49,7 @@ public class BlinkUi : MonoBehaviour
     {
         while (true)
         {
-            // ƒAƒ‹ƒtƒ@’l‚ğ•ÏX‚µ‚Ä“_–ÅŒø‰Ê‚ğì¬‚·‚é
+            // ã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚’å¤‰æ›´ã—ã¦ç‚¹æ»…åŠ¹æœã‚’ä½œæˆã™ã‚‹
             for (float t = 0.01f; t < blinkDuration; t += Time.deltaTime)
             {
                 Color color = tmpText.color;
@@ -59,5 +60,3 @@ public class BlinkUi : MonoBehaviour
         }
     }
 }
-
-
