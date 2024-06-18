@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class AimAndShoot : MonoBehaviour
 {
-    public GameObject target; // ‰æ–Ê’†S‚É”z’u‚µ‚½‹ó‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
-    public GameObject bulletPrefab; // ’e‚ÌƒvƒŒƒnƒu
-    public Transform bulletSpawnPoint; // ’e‚Ì”­ËˆÊ’u
-    public float manualMoveSpeed = 5f; // \šƒL[‚Å‚ÌˆÚ“®‘¬“x
-    public float autoMoveSpeed = 10f; // ©“®ˆÚ“®‘¬“x
-    public float idleTimeThreshold = 0.1f; // “ü—Í‚ª‚È‚©‚Á‚½‚Æ‚İ‚È‚·ŠÔi•bj
-    public float bulletSpeed = 10f; // ’e‚Ì‘¬“x
+    public GameObject target; // ç”»é¢ä¸­å¿ƒã«é…ç½®ã—ãŸç©ºã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    public GameObject bulletPrefab; // å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–
+    public Transform bulletSpawnPoint; // å¼¾ã®ç™ºå°„ä½ç½®
+    public float manualMoveSpeed = 15f; // åå­—ã‚­ãƒ¼ã§ã®ç§»å‹•é€Ÿåº¦
+    public float autoMoveSpeed = 10f; // è‡ªå‹•ç§»å‹•é€Ÿåº¦
+    public float idleTimeThreshold = 0.1f; // å…¥åŠ›ãŒãªã‹ã£ãŸã¨ã¿ãªã™æ™‚é–“ï¼ˆç§’ï¼‰
+    public float bulletSpeed = 10f; // å¼¾ã®é€Ÿåº¦
 
-    private float lastInputTime; // ÅŒã‚É“ü—Í‚ª‚ ‚Á‚½ŠÔ
+    private float lastInputTime; // æœ€å¾Œã«å…¥åŠ›ãŒã‚ã£ãŸæ™‚é–“
 
     void Update()
     {
-        // \šƒL[‚Ì“ü—Í‚ğæ“¾
+        // åå­—ã‚­ãƒ¼ã®å…¥åŠ›ã‚’å–å¾—
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        // “ü—Í‚ª‚ ‚Á‚½ê‡AÅŒã‚Ì“ü—ÍŠÔ‚ğXV
+        // å…¥åŠ›ãŒã‚ã£ãŸå ´åˆã€æœ€å¾Œã®å…¥åŠ›æ™‚é–“ã‚’æ›´æ–°
         if (horizontalInput != 0 || verticalInput != 0)
         {
             lastInputTime = Time.time;
@@ -27,12 +27,12 @@ public class AimAndShoot : MonoBehaviour
         }
         else if (Time.time - lastInputTime >= idleTimeThreshold)
         {
-            // ˆê’èŠÔ“ü—Í‚ª‚È‚©‚Á‚½ê‡AŠŠ‚ç‚©‚Éƒ^[ƒQƒbƒg‚ÉŒü‚©‚Á‚ÄˆÚ“®
+            // ä¸€å®šæ™‚é–“å…¥åŠ›ãŒãªã‹ã£ãŸå ´åˆã€æ»‘ã‚‰ã‹ã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«å‘ã‹ã£ã¦ç§»å‹•
             Vector3 targetPosition = target.transform.position;
             transform.position = Vector3.Lerp(transform.position, targetPosition, autoMoveSpeed * Time.deltaTime);
         }
 
-        // ƒXƒy[ƒXƒL[‚ª‰Ÿ‚³‚ê‚½ê‡A’e‚ğ”­Ë
+        // ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸå ´åˆã€å¼¾ã‚’ç™ºå°„
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Shoot();
@@ -41,10 +41,10 @@ public class AimAndShoot : MonoBehaviour
 
     void Shoot()
     {
-        // ’e‚ÌƒvƒŒƒnƒu‚ğ¶¬
+        // å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–ã‚’ç”Ÿæˆ
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 
-        // ’e‚É‘O•û‚Ö‚Ì—Í‚ğ‰Á‚¦‚é
+        // å¼¾ã«å‰æ–¹ã¸ã®åŠ›ã‚’åŠ ãˆã‚‹
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
         {
@@ -54,7 +54,7 @@ public class AimAndShoot : MonoBehaviour
 
     void Start()
     {
-        // ƒXƒ^[ƒg‚ÉÅŒã‚Ì“ü—ÍŠÔ‚ğŒ»İ‚ÌŠÔ‚Éİ’è
+        // ã‚¹ã‚¿ãƒ¼ãƒˆæ™‚ã«æœ€å¾Œã®å…¥åŠ›æ™‚é–“ã‚’ç¾åœ¨ã®æ™‚é–“ã«è¨­å®š
         lastInputTime = Time.time;
     }
 }
