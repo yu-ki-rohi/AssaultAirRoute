@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8700617353114198275, guid: 19fb19e68bb5f504f8dcd0b8cc940a77,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 19fb19e68bb5f504f8dcd0b8cc940a77,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,6 +63,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2144990787317247848, guid: 19fb19e68bb5f504f8dcd0b8cc940a77,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -1853094968961178454, guid: 19fb19e68bb5f504f8dcd0b8cc940a77,
         type: 3}
       propertyPath: m_BackGroundColor.a
@@ -78,6 +88,11 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 65702495048144492, guid: 19fb19e68bb5f504f8dcd0b8cc940a77,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 19fb19e68bb5f504f8dcd0b8cc940a77,
         type: 3}
       propertyPath: m_Name
@@ -87,6 +102,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947445232178429439, guid: 19fb19e68bb5f504f8dcd0b8cc940a77,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
