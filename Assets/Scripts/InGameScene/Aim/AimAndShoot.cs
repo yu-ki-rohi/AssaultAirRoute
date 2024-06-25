@@ -8,7 +8,7 @@ public class AimAndShoot : MonoBehaviour
     public float manualMoveSpeed = 15f; // 十字キーでの移動速度
     public float autoMoveSpeed = 10f; // 自動移動速度
     public float idleTimeThreshold = 0.1f; // 入力がなかったとみなす時間（秒）
-    public float bulletSpeed = 10f; // 弾の速度
+    public float bulletSpeed = 25f; // 弾の速度
 
     private float lastInputTime; // 最後に入力があった時間
 
