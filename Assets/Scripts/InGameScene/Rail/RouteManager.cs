@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class RouteManager : MonoBehaviour
 {
-    [SerializeField] private Rail _rail;
-    [SerializeField] private float _time = 60;
+    [SerializeField] private Rail[] _rails;
+    [SerializeField] private float[] _times;
+    private int _id = 0;
     private float _timer = 0.0f;
 
     // Start is called before the first frame update
@@ -17,13 +18,21 @@ public class RouteManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Time.deltaTime);
-        transform.position = _rail.GetPos(_timer / _time);
-        _timer += Time.deltaTime;
-        if (_timer / _time < 1.0f)
+        if(_id < _rails.Length)
         {
-            transform.forward = _rail.GetPos(_timer / _time) - transform.position;
+            transform.position = _rails[_id].GetPos(_timer / _times[_id % _times.Length]);
+            _timer += Time.deltaTime;
+            if (_timer / _times[_id] < 1.0f)
+            {
+                transform.forward = _rails[_id].GetPos(_timer / _times[_id % _times.Length]) - transform.position;
+            }
+            else
+            {
+                _id++;
+                _timer = 0.0f;
+            }
         }
+        
         
     }
 }
