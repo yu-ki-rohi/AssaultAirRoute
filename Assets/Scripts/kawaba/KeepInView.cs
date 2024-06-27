@@ -1,27 +1,27 @@
 using UnityEngine;
 
-// “¯‚¶GameObject‰º‚É“ü‚é‚±‚Æ‚Å
+// åŒã˜GameObjectä¸‹ã«å…¥ã‚‹ã“ã¨ã§
 
 public class KeepInView : MonoBehaviour
 {
-    public float buffer = 0.1f;  // ƒJƒƒ‰‚Ì’[‚©‚ç‚Ìƒoƒbƒtƒ@‹——£
-    public float smoothTime = 0.2f;  // ƒXƒ‰ƒCƒh‚·‚éŠÔ
-    public float distanceFromPlayer = 5.0f;  // ƒvƒŒƒCƒ„[‚©‚ç‚Ì‹——£
-    public float verticalMovementAmplitude = 0.5f;  // ã‰º‰^“®‚ÌU•
-    public float verticalMovementSpeed = 1.0f;  // ã‰º‰^“®‚Ì‘¬“x
+    public float buffer = 0.1f;  // ã‚«ãƒ¡ãƒ©ã®ç«¯ã‹ã‚‰ã®ãƒãƒƒãƒ•ã‚¡è·é›¢
+    public float smoothTime = 0.2f;  // ã‚¹ãƒ©ã‚¤ãƒ‰ã™ã‚‹æ™‚é–“
+    public float distanceFromPlayer = 5.0f;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã®è·é›¢
+    public float verticalMovementAmplitude = 0.5f;  // ä¸Šä¸‹é‹å‹•ã®æŒ¯å¹…
+    public float verticalMovementSpeed = 1.0f;  // ä¸Šä¸‹é‹å‹•ã®é€Ÿåº¦
 
     [SerializeField] private float _up = 0.0f;
     [SerializeField] private float _right = 0.0f;
 
     private Camera mainCamera;
     // @yu-ki-rohi
-    // player‚ÌTransformî•ñ‚µ‚©g‚Á‚Ä‚È‚¢‚Ì‚ÅA
-    // GameObject‚Ü‚Å‚Í•K—v‚È‚¢‚æ‚¤‚È‹C‚ª‚µ‚Ü‚·‚Ë
-    // ‚»‚±‚Å‚Ç‚ê‚­‚ç‚¢·‚ªo‚é‚Ì‚©‚Í•ª‚©‚ç‚È‚¢‚Å‚·‚ªA
-    // ‘¼‚ÌƒXƒNƒŠƒvƒg‚Å‚Í“¯‚¶‚æ‚¤‚È‚Æ‚±‚ë‚ÅA
-    // Transform‚É‚µ‚Ä‚¢‚½‚Ì‚Å‹C‚É‚È‚è‚Ü‚µ‚½
+    // playerã®Transformæƒ…å ±ã—ã‹ä½¿ã£ã¦ãªã„ã®ã§ã€
+    // GameObjectã¾ã§ã¯å¿…è¦ãªã„ã‚ˆã†ãªæ°—ãŒã—ã¾ã™ã­
+    // ãã“ã§ã©ã‚Œãã‚‰ã„å·®ãŒå‡ºã‚‹ã®ã‹ã¯åˆ†ã‹ã‚‰ãªã„ã§ã™ãŒã€
+    // ä»–ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã¯åŒã˜ã‚ˆã†ãªã¨ã“ã‚ã§ã€
+    // Transformã«ã—ã¦ã„ãŸã®ã§æ°—ã«ãªã‚Šã¾ã—ãŸ
     private GameObject player;
-    private bool isActive = false;  // ˆ—‚ğ—LŒø‚É‚·‚éƒtƒ‰ƒO
+    private bool isActive = false;  // å‡¦ç†ã‚’æœ‰åŠ¹ã«ã™ã‚‹ãƒ•ãƒ©ã‚°
     private Vector3 targetPosition = Vector3.zero;
     private Vector3 velocity = Vector3.zero;
 
@@ -30,10 +30,10 @@ public class KeepInView : MonoBehaviour
         mainCamera = Camera.main;
 
         // @yu-ki-rohi
-        // ¡‰ñ‚ÍStart“à‚Ìˆ—‚È‚Ì‚ÅA
-        // ‚»‚±‚Ü‚Å–Ú‚­‚¶‚ç—§‚Ä‚é‚Ù‚Ç‚Ì‚±‚Æ‚Å‚à‚È‚¢‚Å‚·‚ª
-        // FindWithTag‚Íd‚ß‚Ìˆ—‚È‚Ì‚Å‚È‚é‚×‚­”ğ‚¯‚½‚Ù‚¤‚ª—Ç‚¢‚Å‚·
-        // “Á‚É¡‰ñ‚ÍActive‰»ˆ—‚ª‚ ‚é‚Ì‚Å‚»‚±‚Åó‚¯“n‚µ‚ª‚Å‚«‚é‚Æv‚¢‚Ü‚·
+        // ä»Šå›ã¯Startå†…ã®å‡¦ç†ãªã®ã§ã€
+        // ãã“ã¾ã§ç›®ãã˜ã‚‰ç«‹ã¦ã‚‹ã»ã©ã®ã“ã¨ã§ã‚‚ãªã„ã§ã™ãŒ
+        // FindWithTagã¯é‡ã‚ã®å‡¦ç†ãªã®ã§ãªã‚‹ã¹ãé¿ã‘ãŸã»ã†ãŒè‰¯ã„ã§ã™
+        // ç‰¹ã«ä»Šå›ã¯ActiveåŒ–å‡¦ç†ãŒã‚ã‚‹ã®ã§ãã“ã§å—ã‘æ¸¡ã—ãŒã§ãã‚‹ã¨æ€ã„ã¾ã™
 #if false
         player = GameObject.FindWithTag("Player");
 #endif
@@ -44,7 +44,7 @@ public class KeepInView : MonoBehaviour
         if (isActive)
         {
 #if true
-            // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ÉŠî‚Ã‚¢‚Äƒ^[ƒQƒbƒgƒIƒuƒWƒFƒNƒg‚Ì–Ú•WˆÊ’u‚ğŒvZ
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã«åŸºã¥ã„ã¦ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç›®æ¨™ä½ç½®ã‚’è¨ˆç®—
             if (player != null)
             {
                 targetPosition = player.transform.position + player.transform.forward * distanceFromPlayer;
@@ -53,11 +53,11 @@ public class KeepInView : MonoBehaviour
             }
 
 #else
-            // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ÉŠî‚Ã‚¢‚Äƒ^[ƒQƒbƒgƒIƒuƒWƒFƒNƒg‚Ì–Ú•WˆÊ’u‚ğŒvZ
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã«åŸºã¥ã„ã¦ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç›®æ¨™ä½ç½®ã‚’è¨ˆç®—
             Vector3 offset = (transform.position - player.transform.position).normalized * distanceFromPlayer;
             Vector3 desiredPosition = player.transform.position + offset;
 
-            // ƒJƒƒ‰‚Ì•`‰æ”ÍˆÍ“à‚Éƒ^[ƒQƒbƒgƒIƒuƒWƒFƒNƒg‚ğ”z’u‚·‚é‚½‚ß‚ÌƒXƒNƒŠ[ƒ“À•W‚ğŒvZ
+            // ã‚«ãƒ¡ãƒ©ã®æç”»ç¯„å›²å†…ã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…ç½®ã™ã‚‹ãŸã‚ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‚’è¨ˆç®—
             Vector3 screenPos = mainCamera.WorldToViewportPoint(desiredPosition);
 
             if (screenPos.x < buffer)
@@ -78,15 +78,15 @@ public class KeepInView : MonoBehaviour
                 screenPos.y = 1 - buffer;
             }
 
-            // V‚µ‚¢ƒ^[ƒQƒbƒgƒ|ƒWƒVƒ‡ƒ“‚ğŒvZ
+            // æ–°ã—ã„ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’è¨ˆç®—
             targetPosition = mainCamera.ViewportToWorldPoint(screenPos);
 
-            // ã‰º‰^“®‚ğ’Ç‰Á
+            // ä¸Šä¸‹é‹å‹•ã‚’è¿½åŠ 
             targetPosition.y += Mathf.Sin(Time.time * verticalMovementSpeed) * verticalMovementAmplitude;
 
 #endif
 
-            // ƒXƒ€[ƒY‚Éƒ^[ƒQƒbƒgƒ|ƒWƒVƒ‡ƒ“‚ÖˆÚ“®
+            // ã‚¹ãƒ ãƒ¼ã‚ºã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒã‚¸ã‚·ãƒ§ãƒ³ã¸ç§»å‹•
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
         }
     }
