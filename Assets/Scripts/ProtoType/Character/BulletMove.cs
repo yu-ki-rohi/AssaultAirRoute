@@ -39,6 +39,16 @@ public class BulletMove : MonoBehaviour
         _power = power;
     }
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Enemy")
+        {
+            if(other.TryGetComponent(out CharacterBase enemyBase))
+            {
+                enemyBase.Damage(_power, _player);
+                Destroy(gameObject);
+            }
+        }
+    }
 
 }

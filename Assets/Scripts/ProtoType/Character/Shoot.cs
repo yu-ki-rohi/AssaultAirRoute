@@ -61,11 +61,9 @@ public class Shoot : MonoBehaviour
                     gameObject.GetComponent<BulletMove>().Init(route, null, characterBase.Atk);
                     gameObject.transform.forward = -transform.right;
                     if(characterBase.AtkSub01 > 0)
-                    {
-                        Debug.Log("true");
+                    {                      
                         for (int i = -1; i < 2; i += 2)
                         {
-                            Debug.Log(i);
                             GameObject subGameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
                             subGameObject.GetComponent<BulletMove>().Init(route, null, characterBase.AtkSub01);
                             subGameObject.transform.forward = (-transform.right + transform.up * verticalRange * i).normalized;

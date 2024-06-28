@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d06b294eed693f045892519194deca65, type: 3}
-  m_Name: Player
+  m_Name: Enemy01
   m_EditorClassIdentifier: 
   MAXHP: 100
-  ATK: 1000
-  ATK_SUB1: 5
-  ATK_SUB2: 5
+  ATK: 10
+  ATK_SUB1: 0
+  ATK_SUB2: 0
   ATK_SPECIAL: 0
   DRAIN: 0
   AGI: 5
   BOUNTY: 0
-  COOLTIME: 0.2
+  COOLTIME: 0.5
   _maxHP: 100
-  _attack: 1000
-  _attackSub1: 5
-  _attackSub2: 5
+  _attack: 10
+  _attackSub1: 0
+  _attackSub2: 0
   _attackSpecial: 0
   _drain: 0
   _agility: 5
   _bounty: 0
-  _coolTime: 0.2
+  _coolTime: 0.5

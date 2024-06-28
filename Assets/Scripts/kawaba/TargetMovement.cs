@@ -26,6 +26,9 @@ public class TargetMovement : MonoBehaviour
     private EnemyArray _enemyArray;
     [SerializeField] private GameObject[] _enemies;
 
+    [SerializeField] private Transform _gatherPosition;
+    private KeepInView _keepInView;
+
     void Start()
     {
         // ターゲットの初期位置を設定
@@ -34,16 +37,35 @@ public class TargetMovement : MonoBehaviour
 
         Invoke("StartHoming", homingStartTime);
 
-        player = transform.parent;
+        
+
         _enemyArray = GetComponentInParent<EnemyArray>();
-        if(_enemyArray != null )
+        if (_enemyArray != null )
         {
             _enemies = _enemyArray.Enemys;
         }
+
+        _keepInView = GetComponentInParent<KeepInView>();
     }
 
     void Update()
     {
+        if( _keepInView != null )
+        {
+            if(player == null)
+            {
+                GameObject playerObject = _keepInView.Player;
+                if(playerObject != null)
+                {
+                    player = playerObject.transform;
+                }
+                
+            }
+            else
+            {
+                transform.LookAt(player, Vector3.up);
+            }
+        }
         if (!isHoming)
         {
             // これするとplayerの上下左右の動きに合わせて動いてしまうから、
@@ -55,7 +77,7 @@ public class TargetMovement : MonoBehaviour
 
 #if true
             // プレイヤーの前方に位置させる
-            Vector3 forwardPosition = player.position + player.forward * distanceFromPlayer;
+            Vector3 forwardPosition = _gatherPosition.position + _gatherPosition.forward * distanceFromPlayer;
             transform.position = Vector3.Lerp(transform.position, forwardPosition, Time.deltaTime * movementSpeed);
 #endif
             // ターゲット同士の距離を保つ
@@ -73,16 +95,22 @@ public class TargetMovement : MonoBehaviour
         }
         else
         {
-            // ホーミング中はプレイヤーに向かって移動
-            Vector3 playerDirection = player.position - transform.position;
-            transform.position += playerDirection.normalized * homingSpeed * Time.deltaTime;
-
-            // ホーミングの持続時間が経過したらホーミングを終了
-            if (Time.time - homingStartTime > homingDuration)
+            if (player != null)
             {
-                isHoming = false;
-                SetRandomTargetPosition(); // ホーミングが終了したらランダムな位置に移動
+                // ホーミング中はプレイヤーに向かって移動
+                Vector3 playerDirection = player.position - transform.position;
+                //transform.position += playerDirection.normalized * homingSpeed * Time.deltaTime;
+                transform.forward = playerDirection.normalized;
+                transform.Translate(Vector3.forward * homingSpeed * Time.deltaTime);
+
+                // ホーミングの持続時間が経過したらホーミングを終了
+                if (Time.time - homingStartTime > homingDuration)
+                {
+                    isHoming = false;
+                    SetRandomTargetPosition(); // ホーミングが終了したらランダムな位置に移動
+                }
             }
+                
         }
 
     }
@@ -100,7 +128,7 @@ public class TargetMovement : MonoBehaviour
         float randomY = Random.Range(-movementRange, movementRange);
         float randomZ = Random.Range(-movementRange, movementRange);
 
-        targetPosition = player.position + player.forward * distanceFromPlayer + new Vector3(randomX, randomY, randomZ);
+        targetPosition = _gatherPosition.position + _gatherPosition.forward * distanceFromPlayer + new Vector3(randomX, randomY, randomZ);
         SetRandomMovementDirection();
     }
 
@@ -122,16 +150,20 @@ public class TargetMovement : MonoBehaviour
 
         foreach (GameObject otherTarget in _enemies)
         {
-            if (otherTarget != gameObject) // 自分自身以外のターゲットに対してのみ処理
+            if(otherTarget != null)
             {
-                float distance = Vector3.Distance(transform.position, otherTarget.transform.position);
-                if (distance < minDistanceBetweenTargets)
+                if (otherTarget != gameObject) // 自分自身以外のターゲットに対してのみ処理
                 {
-                    Vector3 direction = transform.position - otherTarget.transform.position;
-                    direction.Normalize();
-                    transform.position += direction * (minDistanceBetweenTargets - distance) * Time.deltaTime;
+                    float distance = Vector3.Distance(transform.position, otherTarget.transform.position);
+                    if (distance < minDistanceBetweenTargets)
+                    {
+                        Vector3 direction = transform.position - otherTarget.transform.position;
+                        direction.Normalize();
+                        transform.position += direction * (minDistanceBetweenTargets - distance) * Time.deltaTime;
+                    }
                 }
             }
+           
         }
     }
 

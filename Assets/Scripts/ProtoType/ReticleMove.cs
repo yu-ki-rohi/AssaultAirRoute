@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetMove : MonoBehaviour
+public class ReticleMove : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private Transform center;

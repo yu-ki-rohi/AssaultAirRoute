@@ -153,8 +153,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.3, y: -0.37, z: 0.33}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1617903851155047678}
   - {fileID: 2685836477256964384}
@@ -176,11 +176,13 @@ MonoBehaviour:
   coolTime: 0.2
   existTime: 10
   moveSpeed: 10
+  diff: 0.04
   explosion: {fileID: 7484421743215390569, guid: 7d0f1215a9b886948a5e4827df2d062e,
     type: 3}
   figure:
   - {fileID: 8301655992171246575}
   - {fileID: 6136306239786243820}
+  bullet: {fileID: 8169153353487644742, guid: 4ea4751cf4c3f5d47a172e4c9ef471b3, type: 3}
 --- !u!1 &1802751615936292444
 GameObject:
   m_ObjectHideFlags: 0

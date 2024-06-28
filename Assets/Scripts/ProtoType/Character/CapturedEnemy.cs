@@ -14,10 +14,10 @@ public class CapturedEnemy : MonoBehaviour
     [SerializeField] private float coolTime = 0.2f;
     [SerializeField] private float existTime = 10.0f;
     [SerializeField] private float moveSpeed = 10.0f;
+    [SerializeField,Range(0.0f,0.1f)] private float diff = 0.5f;
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject[] figure = new GameObject[2];
-    private Renderer _renderer;
-    private GameObject bullet;
+    [SerializeField] private GameObject bullet;
     private Transform target;
     private Transform route;
     private State state = State.MoveToPlayer;
@@ -26,6 +26,7 @@ public class CapturedEnemy : MonoBehaviour
     private GameObject player;
     private Rigidbody playerRigitBody;
     private Transform parentTransform;
+    private Transform handTransform;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,8 @@ public class CapturedEnemy : MonoBehaviour
             playerRigitBody = player.GetComponent<Rigidbody>();
         }
         figure[1].SetActive(false);
+        handTransform = parentTransform.parent.parent.transform;
+        Debug.Log(handTransform);
     }
 
     // Update is called once per frame
@@ -42,7 +45,7 @@ public class CapturedEnemy : MonoBehaviour
         if(state == State.MoveToPlayer)
         {
             transform.forward = (parentTransform.position - transform.position).normalized;
-            transform.Translate(transform.forward * Time.deltaTime * moveSpeed);
+            transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
 
             float distance = (parentTransform.position - transform.position).magnitude;
             float near = 1.0f + Time.deltaTime * moveSpeed;
@@ -72,7 +75,9 @@ public class CapturedEnemy : MonoBehaviour
                     Vector3 adjustment = (target.transform.position - transform.position).normalized;
                     GameObject gameObject = Instantiate(bullet, transform.position + adjustment, Quaternion.identity, route);
                     gameObject.GetComponent<BulletMove>().Init(route, null, attack);
-                    gameObject.transform.forward = -transform.right;
+                    Vector3 dir = (handTransform.position - transform.position).normalized;
+                    dir = (transform.forward + dir * diff).normalized;
+                    gameObject.transform.forward = dir;
                 }
                 if (Input.GetKeyDown(KeyCode.X))
                 {
@@ -97,7 +102,10 @@ public class CapturedEnemy : MonoBehaviour
 
     public void Init(GameObject bullet_, Transform target_, Transform route_, GameObject player_, Transform parentTransform_)
     {
-        bullet = bullet_;
+        if(bullet == null)
+        {
+            bullet = bullet_;
+        }
         target = target_;
         route = route_;
         player = player_;
