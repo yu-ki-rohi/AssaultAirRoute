@@ -2,21 +2,23 @@ using UnityEngine;
 
 public class FrameInTrigger : MonoBehaviour
 {
-    public GameObject[] targetObjects;  // ƒtƒŒ[ƒ€ƒCƒ“‚³‚¹‚½‚¢ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
+    public GameObject[] targetObjects;  // ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¤ãƒ³ã•ã›ãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            Shoot shoot = other.GetComponentInParent<Shoot>();
             foreach (GameObject targetObject in targetObjects)
             {
                 KeepInView keepInView = targetObject.GetComponent<KeepInView>();
                 if (keepInView != null)
                 {
-                    keepInView.ActivateKeepInView(other.gameObject);
+                    
+                    keepInView.ActivateKeepInView(other.gameObject, shoot.Route);
                 }
             }
-            gameObject.SetActive(false);  // ƒgƒŠƒK[‚ð–³Œø‚É‚·‚é
+            gameObject.SetActive(false);  // ãƒˆãƒªã‚¬ãƒ¼ã‚’ç„¡åŠ¹ã«ã™ã‚‹
         }
     }
 }

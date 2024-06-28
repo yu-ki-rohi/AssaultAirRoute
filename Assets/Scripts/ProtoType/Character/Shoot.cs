@@ -5,10 +5,15 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject captureBullet;
+    [SerializeField] private CharacterBase characterBase;
     [SerializeField] private Transform target;
     [SerializeField] private Transform route;
     [SerializeField] private Transform firePosition;
-    [SerializeField] private float coolTime = 0.1f;
+    [SerializeField] private float firePositionAdjustment = 1.0f;
+    private float coolTime = 0.1f;
+    [SerializeField, Range(0.0f,0.3f)] private float verticalRange = 0.2f;
+    [SerializeField, Range(0.0f, 0.3f)] private float horizontallyRange = 0.2f;
 
     private float timer = 0.0f;
 
@@ -16,25 +21,29 @@ public class Shoot : MonoBehaviour
 
     [SerializeField] private Transform capturePosParent;
     [SerializeField] private Transform[] capturePos;
+
+    public Transform Route { get { return route; } }
     // Start is called before the first frame update
     void Start()
     {
         capturePos = new Transform[capturePosParent.childCount];
+
         for (int i = 0; i < capturePosParent.childCount; i++)
         {
             capturePos[i] = capturePosParent.GetChild(i).transform;
+        }
+
+        if (characterBase != null)
+        {
+            coolTime = characterBase.CoolTime;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //transform.forward = Vector3.Cross(transform.up, (target.transform.position - transform.position).normalized);
-        //transform.right = (-target.transform.position + transform.position).normalized;
-        //transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-        //transform.up = transform.parent.up;
         transform.LookAt(transform.position +
-            Vector3.Cross(transform.up, (target.transform.position - transform.position).normalized),
+            Vector3.Cross(transform.parent.up, (target.transform.position - transform.position).normalized),
             Vector3.Cross(
                 Vector3.Cross(transform.parent.up, (target.transform.position - transform.position).normalized),
                 -(target.transform.position - transform.position).normalized));
@@ -44,18 +53,46 @@ public class Shoot : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                timer = coolTime;
-                GameObject gameObject = Instantiate(bullet, firePosition.position, Quaternion.identity, route);
-                gameObject.GetComponent<BulletMove>().Init(target, player);
-                gameObject.transform.forward = 
-                    (target.localPosition - transform.localPosition).normalized;
+                if(characterBase != null)
+                {
+                    timer = coolTime;
+                    Vector3 adjustment = (target.transform.position - firePosition.position).normalized * firePositionAdjustment;
+                    GameObject gameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
+                    gameObject.GetComponent<BulletMove>().Init(route, null, characterBase.Atk);
+                    gameObject.transform.forward = -transform.right;
+                    if(characterBase.AtkSub01 > 0)
+                    {
+                        Debug.Log("true");
+                        for (int i = -1; i < 2; i += 2)
+                        {
+                            Debug.Log(i);
+                            GameObject subGameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
+                            subGameObject.GetComponent<BulletMove>().Init(route, null, characterBase.AtkSub01);
+                            subGameObject.transform.forward = (-transform.right + transform.up * verticalRange * i).normalized;
+                        }
+                    }
+                    if (characterBase.AtkSub02 > 0)
+                    {
+                        for (int i = -1; i < 2; i += 2)
+                        {
+                            GameObject subGameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
+                            subGameObject.GetComponent<BulletMove>().Init(route, null, characterBase.AtkSub02);
+                            subGameObject.transform.forward = (-transform.right + transform.forward * horizontallyRange * i).normalized;
+                        }
+                    }
+                }
+                
             }
             if (Input.GetKeyDown(KeyCode.X))
             {
-                timer = coolTime;
-                GameObject gameObject = Instantiate(bullet, firePosition.position, Quaternion.identity);
-                gameObject.GetComponent<BulletMove>().Init(target, player);
-                gameObject.transform.forward = -transform.right;
+                if (characterBase != null)
+                {
+                    timer = coolTime;
+                    Vector3 adjustment = (target.transform.position - firePosition.position).normalized * firePositionAdjustment;
+                    GameObject gameObject = Instantiate(captureBullet, firePosition.position + adjustment, Quaternion.identity, route);
+                    gameObject.GetComponent<BulletMove>().Init(route, player, characterBase.Atk / 2);
+                    gameObject.transform.forward = -transform.right;
+                }
             }
         }
         else

@@ -18,12 +18,12 @@ public class CharacterData : ScriptableObject
     [HideInInspector] public float COOLTIME = 0.5f;  // 次の攻撃までの時間
 
     [SerializeField] private int _maxHP = 100;
-    [SerializeField] private int _atk = 10;
-    [SerializeField] private int _atkSub1 = 0;
-    [SerializeField] private int _atkSub2 = 0;
-    [SerializeField] private int _atkSpecial = 0;
+    [SerializeField] private int _attack = 10;
+    [SerializeField] private int _attackSub1 = 0;
+    [SerializeField] private int _attackSub2 = 0;
+    [SerializeField] private int _attackSpecial = 0;
     [SerializeField] private int _drain = 0;
-    [SerializeField] private float _agi = 5.0f;
+    [SerializeField] private float _agility = 5.0f;
     [SerializeField] private int _bounty = 0;
     [SerializeField] private float _coolTime = 0.5f;
 
@@ -31,12 +31,12 @@ public class CharacterData : ScriptableObject
     public void Initialize()
     {
         MAXHP = _maxHP;
-        ATK = _atk;
-        ATK_SUB1 = _atkSub1;
-        ATK_SUB2 = _atkSub2;
-        ATK_SPECIAL = _atkSpecial;
+        ATK = _attack;
+        ATK_SUB1 = _attackSub1;
+        ATK_SUB2 = _attackSub2;
+        ATK_SPECIAL = _attackSpecial;
         DRAIN = _drain;
-        AGI = _agi;
+        AGI = _agility;
         BOUNTY = _bounty;
         COOLTIME = _coolTime;
     }

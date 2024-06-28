@@ -32,11 +32,7 @@ public class SceneController : Singleton<SceneController>
                 _currentScene = Scene.InGame;
 
                 // ゲーム開始前にデータを初期化
-                _playerData.Initialize();
-                foreach(CharacterData enemyData in _enemyDatas)
-                {
-                    enemyData.Initialize();
-                }
+                Initializa();
 
                 SceneManager.LoadScene("InGameScene");
                 break;
@@ -69,5 +65,12 @@ public class SceneController : Singleton<SceneController>
         }
     }
 
-    
+    public void Initializa()
+    {
+        _playerData.Initialize();
+        foreach (CharacterData enemyData in _enemyDatas)
+        {
+            enemyData.Initialize();
+        }
+    }
 }

@@ -12,6 +12,8 @@ public class KeepInView : MonoBehaviour
 
     [SerializeField] private float _up = 0.0f;
     [SerializeField] private float _right = 0.0f;
+    [SerializeField] private float _verticalRange = 10.0f;
+    [SerializeField] private float _horizontallyRange = 20.0f;
 
     private Camera mainCamera;
     // @yu-ki-rohi
@@ -21,6 +23,7 @@ public class KeepInView : MonoBehaviour
     // 他のスクリプトでは同じようなところで、
     // Transformにしていたので気になりました
     private GameObject player;
+    private Transform desiredPosition;
     private bool isActive = false;  // 処理を有効にするフラグ
     private Vector3 targetPosition = Vector3.zero;
     private Vector3 velocity = Vector3.zero;
@@ -28,6 +31,16 @@ public class KeepInView : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+
+        if(_up == 0.0f)
+        {
+            _up = Random.Range(-_verticalRange, _verticalRange);
+        }
+
+        if(_right == 0.0f)
+        {
+            _right = Random.Range(-_horizontallyRange, _horizontallyRange);
+        }
 
         // @yu-ki-rohi
         // 今回はStart内の処理なので、
@@ -44,18 +57,23 @@ public class KeepInView : MonoBehaviour
         if (isActive)
         {
 #if true
-            // プレイヤーの位置に基づいてターゲットオブジェクトの目標位置を計算
-            if (player != null)
+            if(player != null)
             {
-                targetPosition = player.transform.position + player.transform.forward * distanceFromPlayer;
-                targetPosition += player.transform.up * _up;
-                targetPosition += player.transform.right * _right;
+                transform.forward = (player.transform.position - transform.position).normalized;
+            }
+
+            // プレイヤーの位置に基づいてターゲットオブジェクトの目標位置を計算
+            if (desiredPosition != null)
+            {
+                targetPosition = desiredPosition.position + desiredPosition.forward * distanceFromPlayer;
+                targetPosition += desiredPosition.up * _up;
+                targetPosition += desiredPosition.right * _right;
             }
 
 #else
             // プレイヤーの位置に基づいてターゲットオブジェクトの目標位置を計算
-            Vector3 offset = (transform.position - player.transform.position).normalized * distanceFromPlayer;
-            Vector3 desiredPosition = player.transform.position + offset;
+            Vector3 offset = (transform.position - desiredPosition.position).normalized * distanceFromPlayer;
+            Vector3 desiredPosition = desiredPosition.position + offset;
 
             // カメラの描画範囲内にターゲットオブジェクトを配置するためのスクリーン座標を計算
             Vector3 screenPos = mainCamera.WorldToViewportPoint(desiredPosition);
@@ -91,9 +109,10 @@ public class KeepInView : MonoBehaviour
         }
     }
 
-    public void ActivateKeepInView(GameObject target)
+    public void ActivateKeepInView(GameObject target, Transform position)
     {
         player = target;
+        desiredPosition = position;
         isActive = true;
     }
 

@@ -7,8 +7,12 @@ public class BulletMove : MonoBehaviour
 {
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float timer = 3.0f;
-    private Transform _target;
+    private Transform _route;
     private GameObject _player;
+    private int _power;
+    public Transform Route { get { return _route; } }
+    public GameObject GetPlayer { get { return _player; } }
+    public int Power { get { return _power; } }
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +22,9 @@ public class BulletMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // transform.forward = (_target.localPosition - _player.localPosition).normalized;
 
-        transform.localPosition += transform.forward * speed * Time.deltaTime;
+        //transform.localPosition += _route.rotation * transform.forward * speed * Time.deltaTime;
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
         timer -= Time.deltaTime;
         if (timer < 0)
         {
@@ -28,14 +32,13 @@ public class BulletMove : MonoBehaviour
         }
     }
 
-    public void Init(Transform target, GameObject player)
+    public void Init(Transform route, GameObject player, int power)
     {
-        _target = target;
+        _route = route;
         _player = player;
+        _power = power;
     }
 
-    public GameObject GetPlayer()
-    {
-        return _player;
-    }
+    
+
 }

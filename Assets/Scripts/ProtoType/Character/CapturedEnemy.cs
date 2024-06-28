@@ -10,11 +10,12 @@ public class CapturedEnemy : MonoBehaviour
         WithPlayer
     }
 
+    [SerializeField] private int attack = 5;
     [SerializeField] private float coolTime = 0.2f;
     [SerializeField] private float existTime = 10.0f;
     [SerializeField] private float moveSpeed = 10.0f;
     [SerializeField] private GameObject explosion;
-    [SerializeField] private Material[] materials = new Material[2];
+    [SerializeField] private GameObject[] figure = new GameObject[2];
     private Renderer _renderer;
     private GameObject bullet;
     private Transform target;
@@ -32,11 +33,7 @@ public class CapturedEnemy : MonoBehaviour
         {
             playerRigitBody = player.GetComponent<Rigidbody>();
         }
-        _renderer = GetComponent<Renderer>();
-        if(_renderer != null && materials[0] != null)
-        {
-            _renderer.material = materials[0];
-        }
+        figure[1].SetActive(false);
     }
 
     // Update is called once per frame
@@ -56,33 +53,30 @@ public class CapturedEnemy : MonoBehaviour
             if (distance < near)
             {
                 transform.localPosition = Vector3.zero;
-                if (_renderer != null && materials[1] != null)
-                {
-                    _renderer.material = materials[1];
-                }
+
+                figure[0].SetActive(false);
+                figure[1].SetActive(true);
+
                 state = State.WithPlayer;
             }
         }
         else if(state == State.WithPlayer)
         {
-            transform.forward = (target.transform.position - transform.position).normalized;
+            transform.LookAt(target.position, transform.parent.parent.parent.up);
 #if true
             if (coolTimer < 0.0f)
             {
                 if (Input.GetKeyDown(KeyCode.C))
                 {
                     coolTimer = coolTime;
-                    GameObject gameObject = Instantiate(bullet, transform.position, Quaternion.identity, route);
-                    gameObject.GetComponent<BulletMove>().Init(target.transform, player);
-                    gameObject.transform.forward = 
-                        (target.transform.localPosition - (transform.parent.localPosition + transform.parent.parent.parent.transform.localPosition)).normalized;
+                    Vector3 adjustment = (target.transform.position - transform.position).normalized;
+                    GameObject gameObject = Instantiate(bullet, transform.position + adjustment, Quaternion.identity, route);
+                    gameObject.GetComponent<BulletMove>().Init(route, null, attack);
+                    gameObject.transform.forward = -transform.right;
                 }
                 if (Input.GetKeyDown(KeyCode.X))
                 {
-                    coolTimer = coolTime;
-                    GameObject gameObject = Instantiate(bullet, transform.position, Quaternion.identity);
-                    gameObject.GetComponent<BulletMove>().Init(target.transform, player);
-                    gameObject.transform.forward = transform.forward;
+                    
                 }
             }
             else

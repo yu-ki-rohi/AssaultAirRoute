@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ProtoPlayerMove : MonoBehaviour
 {
-    [SerializeField] private float speed = 5.0f;
-    [SerializeField] private float force = 50.0f;
-    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private CharacterBase characterBase;
     [SerializeField] private float _horizontallySup = 4.5f;
     [SerializeField] private float _varticalSup = 2.0f;
+    private float _speed;
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        SceneController.Instance.Initializa();
+        if (characterBase != null)
+        {
+            _speed = characterBase.Agi;
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +38,11 @@ public class ProtoPlayerMove : MonoBehaviour
             input += Vector3.right;
         }
 #if true
-        transform.localPosition += input * speed * Time.deltaTime;
+        if(characterBase != null)
+        {
+            transform.localPosition += input * _speed * Time.deltaTime;
+        }
+       
 #else
         rigidbody.AddForce(input * force * Time.deltaTime,ForceMode.Acceleration);
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0.0f);

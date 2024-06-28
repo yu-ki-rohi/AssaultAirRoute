@@ -4,17 +4,17 @@ using static UnityEngine.GraphicsBuffer;
 public class TargetMovement : MonoBehaviour
 {
     // @yu-ki-rohi
-    // player‚ÌTransformæ“¾A‚¢‚¿‚¢‚¿è•t‚µ‚È‚­‚Ä‚àA
-    // DetectCollide—pˆÓ‚µ‚ÄPlayer‚É“–‚½‚Á‚½‚ç
-    // ‚»‚Ì‚Éæ“¾‚Æ‚©‚É‚·‚é‚Æ‚¢‚¢‚©‚à
-    public Transform player; // ƒvƒŒƒCƒ„[‚ÌTransform
-    public float distanceFromPlayer = 10f; // ƒvƒŒƒCƒ„[‚©‚ç‚Ì‹——£
-    public float movementSpeed = 2f; // ƒ^[ƒQƒbƒg‚ÌˆÚ“®‘¬“x
-    public float movementRange = 5f; // ƒ^[ƒQƒbƒg‚ÌˆÚ“®”ÍˆÍ
-    public float minDistanceBetweenTargets = 3f; // ƒ^[ƒQƒbƒg“¯m‚ÌÅ¬‹——£
-    public float maxMovementChangeInterval = 3f; // ˆÚ“®•ÏX‚ÌÅ‘åŠÔŠu
-    public float homingDuration = 5f; // ƒz[ƒ~ƒ“ƒO‚Ì‘±ŠÔ
-    public float homingSpeed = 5f; // ƒz[ƒ~ƒ“ƒO‚Ì‘¬“x
+    // playerã®Transformå–å¾—ã€ã„ã¡ã„ã¡æ‰‹ä»˜ã—ãªãã¦ã‚‚ã€
+    // DetectCollideç”¨æ„ã—ã¦Playerã«å½“ãŸã£ãŸã‚‰
+    // ãã®æ™‚ã«å–å¾—ã¨ã‹ã«ã™ã‚‹ã¨ã„ã„ã‹ã‚‚
+    public Transform player; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Transform
+    public float distanceFromPlayer = 10f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã®è·é›¢
+    public float movementSpeed = 2f; // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ç§»å‹•é€Ÿåº¦
+    public float movementRange = 5f; // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ç§»å‹•ç¯„å›²
+    public float minDistanceBetweenTargets = 3f; // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆåŒå£«ã®æœ€å°è·é›¢
+    public float maxMovementChangeInterval = 3f; // ç§»å‹•å¤‰æ›´ã®æœ€å¤§é–“éš”
+    public float homingDuration = 5f; // ãƒ›ãƒ¼ãƒŸãƒ³ã‚°ã®æŒç¶šæ™‚é–“
+    public float homingSpeed = 5f; // ãƒ›ãƒ¼ãƒŸãƒ³ã‚°æ™‚ã®é€Ÿåº¦
 
     private Vector3 targetPosition;
     private Vector3 movementDirection;
@@ -23,61 +23,71 @@ public class TargetMovement : MonoBehaviour
     [SerializeField]
     private float homingStartTime;
 
+    private EnemyArray _enemyArray;
+    [SerializeField] private GameObject[] _enemies;
+
     void Start()
     {
-        // ƒ^[ƒQƒbƒg‚Ì‰ŠúˆÊ’u‚ğİ’è
+        // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åˆæœŸä½ç½®ã‚’è¨­å®š
         SetRandomTargetPosition();
         lastMovementChangeTime = Time.time;
 
         Invoke("StartHoming", homingStartTime);
+
+        player = transform.parent;
+        _enemyArray = GetComponentInParent<EnemyArray>();
+        if(_enemyArray != null )
+        {
+            _enemies = _enemyArray.Enemys;
+        }
     }
 
     void Update()
     {
         if (!isHoming)
         {
-            // ‚±‚ê‚·‚é‚Æplayer‚Ìã‰º¶‰E‚Ì“®‚«‚É‡‚í‚¹‚Ä“®‚¢‚Ä‚µ‚Ü‚¤‚©‚çA
-            // ‚¿‚å‚Á‚Æ‚Ü‚¸‚¢‚©‚à
-            // ‚»‚à‚»‚à“¯‚¶GameObject‰º‚É“ü‚é‚±‚Æ‚ÅA
-            // ‘Š‘ÎÀ•W‚Ål‚¦‚ç‚ê‚é‚©‚çA
-            // ‘O•û‚ÉˆÊ’u‚µ‘±‚¯‚é‚½‚ß‚Ìˆ—‚Í•K—v‚È‚¢‚Æv‚¤
-            // ‚±‚ê‚ÉŠÖ‚µ‚Ä‚Íà–¾•s‘«‚Å\‚µ–ó‚È‚¢
+            // ã“ã‚Œã™ã‚‹ã¨playerã®ä¸Šä¸‹å·¦å³ã®å‹•ãã«åˆã‚ã›ã¦å‹•ã„ã¦ã—ã¾ã†ã‹ã‚‰ã€
+            // ã¡ã‚‡ã£ã¨ã¾ãšã„ã‹ã‚‚
+            // ãã‚‚ãã‚‚åŒã˜GameObjectä¸‹ã«å…¥ã‚‹ã“ã¨ã§ã€
+            // ç›¸å¯¾åº§æ¨™ã§è€ƒãˆã‚‰ã‚Œã‚‹ã‹ã‚‰ã€
+            // å‰æ–¹ã«ä½ç½®ã—ç¶šã‘ã‚‹ãŸã‚ã®å‡¦ç†ã¯å¿…è¦ãªã„ã¨æ€ã†
+            // ã“ã‚Œã«é–¢ã—ã¦ã¯èª¬æ˜ä¸è¶³ã§ç”³ã—è¨³ãªã„
 
-
-            // ƒvƒŒƒCƒ„[‚Ì‘O•û‚ÉˆÊ’u‚³‚¹‚é
+#if true
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰æ–¹ã«ä½ç½®ã•ã›ã‚‹
             Vector3 forwardPosition = player.position + player.forward * distanceFromPlayer;
             transform.position = Vector3.Lerp(transform.position, forwardPosition, Time.deltaTime * movementSpeed);
-
-            // ƒ^[ƒQƒbƒg“¯m‚Ì‹——£‚ğ•Û‚Â
+#endif
+            // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆåŒå£«ã®è·é›¢ã‚’ä¿ã¤
             KeepDistanceBetweenTargets();
 
-            // ˆê’èŠÔŠu‚Åƒ‰ƒ“ƒ_ƒ€‚È•ûŒü‚ÉˆÚ“®‚·‚é
+            // ä¸€å®šé–“éš”ã§ãƒ©ãƒ³ãƒ€ãƒ ãªæ–¹å‘ã«ç§»å‹•ã™ã‚‹
             if (Time.time - lastMovementChangeTime > maxMovementChangeInterval)
             {
                 lastMovementChangeTime = Time.time;
                 SetRandomMovementDirection();
             }
 
-            // ƒ‰ƒ“ƒ_ƒ€‚È•ûŒü‚ÉˆÚ“®
+            // ãƒ©ãƒ³ãƒ€ãƒ ãªæ–¹å‘ã«ç§»å‹•
             transform.position += movementDirection * movementSpeed * Time.deltaTime;
         }
         else
         {
-            // ƒz[ƒ~ƒ“ƒO’†‚ÍƒvƒŒƒCƒ„[‚ÉŒü‚©‚Á‚ÄˆÚ“®
+            // ãƒ›ãƒ¼ãƒŸãƒ³ã‚°ä¸­ã¯ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«å‘ã‹ã£ã¦ç§»å‹•
             Vector3 playerDirection = player.position - transform.position;
             transform.position += playerDirection.normalized * homingSpeed * Time.deltaTime;
 
-            // ƒz[ƒ~ƒ“ƒO‚Ì‘±ŠÔ‚ªŒo‰ß‚µ‚½‚çƒz[ƒ~ƒ“ƒO‚ğI—¹
+            // ãƒ›ãƒ¼ãƒŸãƒ³ã‚°ã®æŒç¶šæ™‚é–“ãŒçµŒéã—ãŸã‚‰ãƒ›ãƒ¼ãƒŸãƒ³ã‚°ã‚’çµ‚äº†
             if (Time.time - homingStartTime > homingDuration)
             {
                 isHoming = false;
-                SetRandomTargetPosition(); // ƒz[ƒ~ƒ“ƒO‚ªI—¹‚µ‚½‚çƒ‰ƒ“ƒ_ƒ€‚ÈˆÊ’u‚ÉˆÚ“®
+                SetRandomTargetPosition(); // ãƒ›ãƒ¼ãƒŸãƒ³ã‚°ãŒçµ‚äº†ã—ãŸã‚‰ãƒ©ãƒ³ãƒ€ãƒ ãªä½ç½®ã«ç§»å‹•
             }
         }
 
     }
 
-    // ƒz[ƒ~ƒ“ƒO‚ğŠJn‚·‚éƒƒ\ƒbƒh
+    // ãƒ›ãƒ¼ãƒŸãƒ³ã‚°ã‚’é–‹å§‹ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void StartHoming()
     {
         isHoming = true;
@@ -102,17 +112,17 @@ public class TargetMovement : MonoBehaviour
     void KeepDistanceBetweenTargets()
     {
         // @yu-ki-rohi
-        // ‚±‚Ìˆ—(FindGameObjectsWithTag)‚ÍŒ‹\d‚½‚¢‚ç‚µ‚¢‚©‚çA
-        // Update‚ÅŒÄ‚Ño‚·‚Ì‚Í”ğ‚¯‚½‚Ù‚¤‚ª—Ç‚¢‚©‚à
-        // ‘Îô‚Æ‚µ‚Äl‚¦‚ç‚ê‚é‚Ì‚ÍA
-        // 1. Å‰‚©‚ç‚Ğ‚Æ‚Ü‚Æ‚Ü‚è‚Æ‚µ‚Ä—pˆÓ
-        // 2. DetectCollider‚ğ—pˆÓ‚µ‚Ä“–‚½‚Á‚½‚â‚Â‚ğ’Ç‰Á
-        // ‚ ‚½‚è‚©‚È
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
+        // ã“ã®å‡¦ç†(FindGameObjectsWithTag)ã¯çµæ§‹é‡ãŸã„ã‚‰ã—ã„ã‹ã‚‰ã€
+        // Updateã§å‘¼ã³å‡ºã™ã®ã¯é¿ã‘ãŸã»ã†ãŒè‰¯ã„ã‹ã‚‚
+        // å¯¾ç­–ã¨ã—ã¦è€ƒãˆã‚‰ã‚Œã‚‹ã®ã¯ã€
+        // 1. æœ€åˆã‹ã‚‰ã²ã¨ã¾ã¨ã¾ã‚Šã¨ã—ã¦ç”¨æ„
+        // 2. DetectColliderã‚’ç”¨æ„ã—ã¦å½“ãŸã£ãŸã‚„ã¤ã‚’è¿½åŠ 
+        // ã‚ãŸã‚Šã‹ãª
+        
 
-        foreach (GameObject otherTarget in targets)
+        foreach (GameObject otherTarget in _enemies)
         {
-            if (otherTarget != gameObject) // ©•ª©gˆÈŠO‚Ìƒ^[ƒQƒbƒg‚É‘Î‚µ‚Ä‚Ì‚İˆ—
+            if (otherTarget != gameObject) // è‡ªåˆ†è‡ªèº«ä»¥å¤–ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«å¯¾ã—ã¦ã®ã¿å‡¦ç†
             {
                 float distance = Vector3.Distance(transform.position, otherTarget.transform.position);
                 if (distance < minDistanceBetweenTargets)
@@ -127,7 +137,7 @@ public class TargetMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {  
-        // Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚ªˆÙ‚È‚éê‡‚ÉƒXƒRƒA‚ğ‘‰Á
+        // è¡çªã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒç•°ãªã‚‹å ´åˆã«ã‚¹ã‚³ã‚¢ã‚’å¢—åŠ 
         if (collision.gameObject.CompareTag("Bullet"))
         {
             //ScoreManager.Instance.AddScore(GameConstants.Instance.Score);

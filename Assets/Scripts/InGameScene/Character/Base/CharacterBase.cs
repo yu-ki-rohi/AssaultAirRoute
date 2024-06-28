@@ -16,10 +16,17 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] private MeshRenderer[] _meshRenderers;
     [SerializeField] private Color _damageFlushColor = Color.white;
     private Material[] _flushMaterials;
-    private float _intensity;
+    [SerializeField] private float _intensity = 3.0f;
     [SerializeField, Range(0.0f, 1.0f)] private float _returnIntensityRatio = 0.9f;
 
     public int CurrentHp { get { return _currentHp; } }
+
+    public int Atk { get { return _data.ATK; } }
+    public int AtkSub01 { get { return _data.ATK_SUB1; } }
+    public int AtkSub02 { get { return _data.ATK_SUB2; } }
+    public int SpecialAtk { get { return _data.ATK_SPECIAL; } }
+    public float CoolTime { get { return _data.COOLTIME; } }
+    public float Agi { get { return _data.AGI; } }
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -31,16 +38,14 @@ public class CharacterBase : MonoBehaviour
 
         int materialNum = _skinnedRenderers.Length + _meshRenderers.Length;
         _flushMaterials = new Material[materialNum];
-        Debug.Log(_skinnedRenderers.Length + _meshRenderers.Length);
+       
         for(int i = 0; i < _skinnedRenderers.Length; i++)
-        {
-            Debug.Log(i);
+        {            
             _flushMaterials[i] = _skinnedRenderers[i].materials[1];
         }
 
         for (int i = _skinnedRenderers.Length; i < materialNum; i++)
         {
-            Debug.Log(i);
             _flushMaterials[i] = _meshRenderers[i - _skinnedRenderers.Length].materials[1];
         }
     }
@@ -104,7 +109,6 @@ public class CharacterBase : MonoBehaviour
         {
             if (_flushMaterials[i] != null)
             {
-                _intensity = 3.0f;
                 Color finalColor = color * Mathf.LinearToGammaSpace(_intensity);
                 _flushMaterials[i].SetColor("_EmissionColor", finalColor);
                 DynamicGI.SetEmissive(_skinnedRenderers[i], finalColor);
@@ -114,7 +118,6 @@ public class CharacterBase : MonoBehaviour
         {
             if (_flushMaterials[i] != null)
             {
-                _intensity = 3.0f;
                 Color finalColor = color * Mathf.LinearToGammaSpace(_intensity);
                 _flushMaterials[i].SetColor("_EmissionColor", finalColor);
                 DynamicGI.SetEmissive(_meshRenderers[i - _skinnedRenderers.Length], finalColor);

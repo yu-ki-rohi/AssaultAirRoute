@@ -14,20 +14,20 @@ public class TargetScript : MonoBehaviour
         Debug.Log("Target entered the BoxCollider and started its specific action.");
         if (keepInView != null)
         {
-            keepInView.ActivateKeepInView(target);
+            //keepInView.ActivateKeepInView(target);
         }
-        // “Á’è‚Ìˆ—‚ğ‚±‚±‚É’Ç‰Á
+        // ç‰¹å®šã®å‡¦ç†ã‚’ã“ã“ã«è¿½åŠ 
     }
 
     public void OnStayCollision()
     {
         Debug.Log("Target is within the BoxCollider and continues its specific action.");
-        // Œp‘±“I‚È“Á’è‚Ìˆ—‚ğ‚±‚±‚É’Ç‰Á
+        // ç¶™ç¶šçš„ãªç‰¹å®šã®å‡¦ç†ã‚’ã“ã“ã«è¿½åŠ 
     }
 
     public void OnExitCollision()
     {
         Debug.Log("Target exited the BoxCollider but continues KeepInView action.");
-        // “Á’è‚Ìˆ—‚ğI—¹‚·‚é‚½‚ß‚Ìˆ—‚ğ‚±‚±‚É’Ç‰Á
+        // ç‰¹å®šã®å‡¦ç†ã‚’çµ‚äº†ã™ã‚‹ãŸã‚ã®å‡¦ç†ã‚’ã“ã“ã«è¿½åŠ 
     }
 }
