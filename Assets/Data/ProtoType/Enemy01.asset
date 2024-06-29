@@ -16,17 +16,17 @@ MonoBehaviour:
   ATK: 10
   ATK_SUB1: 0
   ATK_SUB2: 0
-  ATK_SPECIAL: 0
+  ATK_SPECIAL: 40
   DRAIN: 0
   AGI: 5
-  BOUNTY: 0
-  COOLTIME: 0.5
+  BOUNTY: 5
+  COOLTIME: 2
   _maxHP: 100
   _attack: 10
   _attackSub1: 0
   _attackSub2: 0
-  _attackSpecial: 0
+  _attackSpecial: 40
   _drain: 0
   _agility: 5
-  _bounty: 0
-  _coolTime: 0.5
+  _bounty: 5
+  _coolTime: 2

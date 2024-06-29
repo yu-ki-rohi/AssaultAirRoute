@@ -8,10 +8,11 @@ public class BulletMove : MonoBehaviour
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float timer = 3.0f;
     private Transform _route;
-    private GameObject _player;
+    private GameObject _attacker;
     private int _power;
+    private bool _isCaptureBullet;
     public Transform Route { get { return _route; } }
-    public GameObject GetPlayer { get { return _player; } }
+    public GameObject GetAttacker { get { return _attacker; } }
     public int Power { get { return _power; } }
     // Start is called before the first frame update
     void Start()
@@ -32,20 +33,34 @@ public class BulletMove : MonoBehaviour
         }
     }
 
-    public void Init(Transform route, GameObject player, int power)
+    public void Init(int power,  GameObject attacker, Transform route = null, bool isCaptureBullet = false)
     {
-        _route = route;
-        _player = player;
         _power = power;
+        _attacker = attacker;
+        _route = route;
+        _isCaptureBullet = isCaptureBullet;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
+        if(other == null || _attacker == null)
+        { 
+            return;
+        }
+        if(other.tag == "Enemy" && _attacker.tag == "Player")
         {
             if(other.TryGetComponent(out CharacterBase enemyBase))
             {
-                enemyBase.Damage(_power, _player);
+                enemyBase.Damage(_power, _attacker, _isCaptureBullet);
+                Destroy(gameObject);
+            }
+        }
+
+        if (other.tag == "Player" && _attacker.tag == "Enemy")
+        {
+            if (other.TryGetComponent(out CharacterBase player))
+            {
+                player.Damage(_power, _attacker);
                 Destroy(gameObject);
             }
         }

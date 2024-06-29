@@ -19,6 +19,7 @@ public class CharacterBase : MonoBehaviour
     [SerializeField, Range(0.0f, 1.0f)] private float _returnIntensityRatio = 0.9f;
 
     public int CurrentHp { get { return _currentHp; } }
+    public int MaxHp { get { return _data.MAXHP; } }
 
     public int Atk { get { return _data.ATK; } }
     public int AtkSub01 { get { return _data.ATK_SUB1; } }
@@ -85,24 +86,25 @@ public class CharacterBase : MonoBehaviour
 
     // ダメージを受ける処理
     // 
-    virtual public void Damage(int power, GameObject attacker)
-    {
-        
+    virtual public void Damage(int power, GameObject attacker, bool isCaptureBullet = false)
+    {        
         // HP減少処理
-        _currentHp -= power;
-        if(_currentHp <= 0)
+        if(_currentHp > 0)
         {
-            _currentHp = 0;
-            Die(attacker);
-        }
-        else
-        {
-            DamageFlush(_damageFlushColor);
-        }
-             
+            _currentHp -= power;
+            if (_currentHp <= 0)
+            {
+                _currentHp = 0;
+                Die(attacker, isCaptureBullet);
+            }
+            else
+            {
+                DamageFlush(_damageFlushColor);
+            }
+        }          
     }
 
-    virtual protected void Die(GameObject attacker)
+    virtual protected void Die(GameObject attacker, bool isCaptureBullet = false)
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);

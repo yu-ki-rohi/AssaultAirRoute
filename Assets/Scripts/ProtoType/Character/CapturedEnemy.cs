@@ -18,6 +18,7 @@ public class CapturedEnemy : MonoBehaviour
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject[] figure = new GameObject[2];
     [SerializeField] private GameObject bullet;
+    [SerializeField] private bool isUpFixd = false;
     private Transform target;
     private Transform route;
     private State state = State.MoveToPlayer;
@@ -34,9 +35,9 @@ public class CapturedEnemy : MonoBehaviour
         {
             playerRigitBody = player.GetComponent<Rigidbody>();
         }
+        figure[0].SetActive(true);
         figure[1].SetActive(false);
         handTransform = parentTransform.parent.parent.transform;
-        Debug.Log(handTransform);
     }
 
     // Update is called once per frame
@@ -44,7 +45,8 @@ public class CapturedEnemy : MonoBehaviour
     {
         if(state == State.MoveToPlayer)
         {
-            transform.forward = (parentTransform.position - transform.position).normalized;
+            transform.LookAt(parentTransform.position);
+            //transform.forward = (parentTransform.position - transform.position).normalized;
             transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
 
             float distance = (parentTransform.position - transform.position).magnitude;
@@ -65,7 +67,15 @@ public class CapturedEnemy : MonoBehaviour
         }
         else if(state == State.WithPlayer)
         {
-            transform.LookAt(target.position, transform.parent.parent.parent.up);
+            if(isUpFixd)
+            {
+                transform.LookAt(target.position, handTransform.up);
+            }
+            else
+            {
+                transform.LookAt(target.position, transform.parent.up);
+            }
+            
 #if true
             if (coolTimer < 0.0f)
             {
@@ -74,8 +84,8 @@ public class CapturedEnemy : MonoBehaviour
                     coolTimer = coolTime;
                     Vector3 adjustment = (target.transform.position - transform.position).normalized;
                     GameObject gameObject = Instantiate(bullet, transform.position + adjustment, Quaternion.identity, route);
-                    gameObject.GetComponent<BulletMove>().Init(route, null, attack);
-                    Vector3 dir = (handTransform.position - transform.position).normalized;
+                    gameObject.GetComponent<BulletMove>().Init(attack, player, route );
+                    Vector3 dir = (transform.position - handTransform.position).normalized;
                     dir = (transform.forward + dir * diff).normalized;
                     gameObject.transform.forward = dir;
                 }

@@ -256,6 +256,7 @@ MonoBehaviour:
   - {fileID: 6516746195296187358}
   - {fileID: 3542813412213127174}
   bullet: {fileID: 8169153353487644742, guid: 4ea4751cf4c3f5d47a172e4c9ef471b3, type: 3}
+  isUpFixd: 0
 --- !u!1 &6516746195296187358
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3447937191410728390
 Transform:
   m_ObjectHideFlags: 0

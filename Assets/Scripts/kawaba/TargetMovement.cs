@@ -7,7 +7,7 @@ public class TargetMovement : MonoBehaviour
     // playerのTransform取得、いちいち手付しなくても、
     // DetectCollide用意してPlayerに当たったら
     // その時に取得とかにするといいかも
-    public Transform player; // プレイヤーのTransform
+    private Transform player; // プレイヤーのTransform
     public float distanceFromPlayer = 10f; // プレイヤーからの距離
     public float movementSpeed = 2f; // ターゲットの移動速度
     public float movementRange = 5f; // ターゲットの移動範囲
@@ -24,10 +24,14 @@ public class TargetMovement : MonoBehaviour
     private float homingStartTime;
 
     private EnemyArray _enemyArray;
-    [SerializeField] private GameObject[] _enemies;
+    private GameObject[] _enemies;
 
     [SerializeField] private Transform _gatherPosition;
     private KeepInView _keepInView;
+    [SerializeField] private CharacterBase _characterBase;
+    [SerializeField] private GameObject _bullet;
+    [SerializeField, Range(0.0f, 5.0f)] private float _diffRange = 0.5f;
+    private float _coolTimer;
 
     void Start()
     {
@@ -38,7 +42,6 @@ public class TargetMovement : MonoBehaviour
         Invoke("StartHoming", homingStartTime);
 
         
-
         _enemyArray = GetComponentInParent<EnemyArray>();
         if (_enemyArray != null )
         {
@@ -46,6 +49,12 @@ public class TargetMovement : MonoBehaviour
         }
 
         _keepInView = GetComponentInParent<KeepInView>();
+
+        if(_characterBase != null )
+        {
+            float diff = Random.Range(0.0f, _diffRange);
+            _coolTimer = _characterBase.CoolTime + diff;
+        }
     }
 
     void Update()
@@ -92,6 +101,24 @@ public class TargetMovement : MonoBehaviour
 
             // ランダムな方向に移動
             transform.position += movementDirection * movementSpeed * Time.deltaTime;
+
+            // 弾発射処理
+            if (_keepInView != null && player != null)
+            {
+                if(_coolTimer > 0)
+                {
+                    _coolTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    float diff = Random.Range(0.0f, _diffRange);
+                    _coolTimer = _characterBase.CoolTime + diff;
+                    Transform route = _keepInView.DesiredPosition;
+                    GameObject bullet = Instantiate(_bullet, transform.position, Quaternion.identity, route);
+                    bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject, route);
+                    bullet.transform.forward = transform.forward;
+                }
+            }
         }
         else
         {
@@ -169,11 +196,18 @@ public class TargetMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {  
-        // 衝突したオブジェクトが異なる場合にスコアを増加
-        if (collision.gameObject.CompareTag("Bullet"))
+        // ホーミング中にプレイヤーに衝突したら爆発
+        if (collision.gameObject.tag =="Player" && isHoming)
         {
-            //ScoreManager.Instance.AddScore(GameConstants.Instance.Score);
-            Destroy(gameObject);
+            if(_characterBase != null)
+            {
+                if (collision.gameObject.TryGetComponent(out CharacterBase characterBase))
+                {
+                    characterBase.Damage(_characterBase.SpecialAtk, null);
+                    _characterBase.Damage(_characterBase.MaxHp, null);
+                }
+            }
+                          
         }
     }
 }

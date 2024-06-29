@@ -58,14 +58,14 @@ public class Shoot : MonoBehaviour
                     timer = coolTime;
                     Vector3 adjustment = (target.transform.position - firePosition.position).normalized * firePositionAdjustment;
                     GameObject gameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
-                    gameObject.GetComponent<BulletMove>().Init(route, null, characterBase.Atk);
+                    gameObject.GetComponent<BulletMove>().Init(characterBase.Atk, player, route);
                     gameObject.transform.forward = -transform.right;
                     if(characterBase.AtkSub01 > 0)
                     {                      
                         for (int i = -1; i < 2; i += 2)
                         {
                             GameObject subGameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
-                            subGameObject.GetComponent<BulletMove>().Init(route, null, characterBase.AtkSub01);
+                            subGameObject.GetComponent<BulletMove>().Init(characterBase.AtkSub01, player, route);
                             subGameObject.transform.forward = (-transform.right + transform.up * verticalRange * i).normalized;
                         }
                     }
@@ -74,7 +74,7 @@ public class Shoot : MonoBehaviour
                         for (int i = -1; i < 2; i += 2)
                         {
                             GameObject subGameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
-                            subGameObject.GetComponent<BulletMove>().Init(route, null, characterBase.AtkSub02);
+                            subGameObject.GetComponent<BulletMove>().Init(characterBase.AtkSub02, player, route);
                             subGameObject.transform.forward = (-transform.right + transform.forward * horizontallyRange * i).normalized;
                         }
                     }
@@ -88,7 +88,7 @@ public class Shoot : MonoBehaviour
                     timer = coolTime;
                     Vector3 adjustment = (target.transform.position - firePosition.position).normalized * firePositionAdjustment;
                     GameObject gameObject = Instantiate(captureBullet, firePosition.position + adjustment, Quaternion.identity, route);
-                    gameObject.GetComponent<BulletMove>().Init(route, player, characterBase.Atk / 2);
+                    gameObject.GetComponent<BulletMove>().Init(characterBase.Atk / 2, player, route, true);
                     gameObject.transform.forward = -transform.right;
                 }
             }

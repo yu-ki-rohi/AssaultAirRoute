@@ -29,6 +29,7 @@ public class KeepInView : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
 
     public GameObject Player { get { return player; } }
+    public Transform DesiredPosition { get { return desiredPosition; } }
 
     void Start()
     {
@@ -59,10 +60,10 @@ public class KeepInView : MonoBehaviour
         if (isActive)
         {
 #if true
-            if(player != null)
-            {
-                transform.forward = (player.transform.position - transform.position).normalized;
-            }
+            //if(player != null)
+            //{
+            //    transform.forward = (player.transform.position - transform.position).normalized;
+            //}
 
             // プレイヤーの位置に基づいてターゲットオブジェクトの目標位置を計算
             if (desiredPosition != null)

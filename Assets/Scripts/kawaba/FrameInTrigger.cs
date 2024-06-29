@@ -2,8 +2,17 @@ using UnityEngine;
 
 public class FrameInTrigger : MonoBehaviour
 {
-    public GameObject[] targetObjects;  // フレームインさせたいオブジェクトの配列
+    [SerializeField] Transform _targetParent;
+    private GameObject[] targetObjects;  // フレームインさせたいオブジェクトの配列
 
+    private void Awake()
+    {
+        targetObjects = new GameObject[_targetParent.childCount];
+        for (int i = 0; i < _targetParent.childCount; i++)
+        {
+            targetObjects[i] = _targetParent.GetChild(i).gameObject;
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -11,12 +20,16 @@ public class FrameInTrigger : MonoBehaviour
             Shoot shoot = other.GetComponentInParent<Shoot>();
             foreach (GameObject targetObject in targetObjects)
             {
-                KeepInView keepInView = targetObject.GetComponent<KeepInView>();
-                if (keepInView != null)
+                if(targetObject != null)
                 {
-                    
-                    keepInView.ActivateKeepInView(other.gameObject, shoot.Route);
+                    KeepInView keepInView = targetObject.GetComponent<KeepInView>();
+                    if (keepInView != null)
+                    {
+
+                        keepInView.ActivateKeepInView(other.gameObject, shoot.Route);
+                    }
                 }
+               
             }
             gameObject.SetActive(false);  // トリガーを無効にする
         }
