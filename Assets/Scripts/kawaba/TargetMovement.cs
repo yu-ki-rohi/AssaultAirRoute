@@ -39,7 +39,7 @@ public class TargetMovement : MonoBehaviour
         SetRandomTargetPosition();
         lastMovementChangeTime = Time.time;
 
-        Invoke("StartHoming", homingStartTime);
+        //Invoke("StartHoming", homingStartTime);
 
         
         _enemyArray = GetComponentInParent<EnemyArray>();
@@ -75,7 +75,7 @@ public class TargetMovement : MonoBehaviour
                 transform.LookAt(player, Vector3.up);
             }
         }
-        if (!isHoming)
+        if (homingStartTime > 0)
         {
             // これするとplayerの上下左右の動きに合わせて動いてしまうから、
             // ちょっとまずいかも
@@ -102,22 +102,29 @@ public class TargetMovement : MonoBehaviour
             // ランダムな方向に移動
             transform.position += movementDirection * movementSpeed * Time.deltaTime;
 
-            // 弾発射処理
-            if (_keepInView != null && player != null)
+            
+
+            if(player != null)
             {
-                if(_coolTimer > 0)
+                // 弾発射処理
+                if (_keepInView != null)
                 {
-                    _coolTimer -= Time.deltaTime;
+                    if (_coolTimer > 0)
+                    {
+                        _coolTimer -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        float diff = Random.Range(0.0f, _diffRange);
+                        _coolTimer = _characterBase.CoolTime + diff;
+                        Transform route = _keepInView.DesiredPosition;
+                        GameObject bullet = Instantiate(_bullet, transform.position, Quaternion.identity, route);
+                        bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject, route);
+                        bullet.transform.forward = transform.forward;
+                    }
                 }
-                else
-                {
-                    float diff = Random.Range(0.0f, _diffRange);
-                    _coolTimer = _characterBase.CoolTime + diff;
-                    Transform route = _keepInView.DesiredPosition;
-                    GameObject bullet = Instantiate(_bullet, transform.position, Quaternion.identity, route);
-                    bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject, route);
-                    bullet.transform.forward = transform.forward;
-                }
+
+                homingStartTime -= Time.deltaTime;
             }
         }
         else
@@ -197,7 +204,7 @@ public class TargetMovement : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {  
         // ホーミング中にプレイヤーに衝突したら爆発
-        if (collision.gameObject.tag =="Player" && isHoming)
+        if (collision.gameObject.tag =="Player" && homingStartTime <= 0)
         {
             if(_characterBase != null)
             {
