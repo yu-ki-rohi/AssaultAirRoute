@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyShoot : MonoBehaviour
 {
     [SerializeField] private CharacterBase _characterBase;
+    [SerializeField] private Transform _firePosition;
+    [SerializeField] private Transform _fireTarget;
     [SerializeField] private GameObject _bullet;
     [SerializeField, Range(0.0f, 5.0f)] private float _diffRange = 0.5f;
     private Transform player;
@@ -25,22 +27,28 @@ public class EnemyShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_keepInView != null)
+        if (player == null)
         {
-            if (player == null)
+            if (_keepInView != null)
             {
                 GameObject playerObject = _keepInView.Player;
                 if (playerObject != null)
                 {
                     player = playerObject.transform;
                 }
-
             }
-            else
+            
+            if(_fireTarget != null)
             {
-                transform.LookAt(player, Vector3.up);
+                transform.LookAt(_fireTarget.position);
             }
+
         }
+        else
+        {
+            transform.LookAt(player, Vector3.up);
+        }
+        
 
         // 弾発射処理
         if (_keepInView != null && player != null)
@@ -54,10 +62,77 @@ public class EnemyShoot : MonoBehaviour
                 float diff = Random.Range(0.0f, _diffRange);
                 _coolTimer = _characterBase.CoolTime + diff;
                 Transform route = _keepInView.DesiredPosition;
-                GameObject bullet = Instantiate(_bullet, transform.position, Quaternion.identity, route);
+                Transform firePosition = transform;
+                if (_firePosition != null)
+                {
+                    firePosition = _firePosition;
+                }
+                GameObject bullet = Instantiate(_bullet, firePosition.position, Quaternion.identity, route);
                 bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject, route);
-                bullet.transform.forward = transform.forward;
+                if (_firePosition != null)
+                {
+                    bullet.transform.forward = (player.position - _firePosition.position).normalized;
+                }
+                else
+                {
+                    bullet.transform.forward = transform.forward;
+                }
+
             }
+        }
+        else if (_fireTarget != null)
+        {
+            if (_coolTimer > 0)
+            {
+                _coolTimer -= Time.deltaTime;
+            }
+            else
+            {
+                float diff = Random.Range(0.0f, _diffRange);
+                _coolTimer = _characterBase.CoolTime + diff;
+
+                Transform firePosition = transform;
+                if (_firePosition != null)
+                {
+                    firePosition = _firePosition;
+                }
+                GameObject bullet = Instantiate(_bullet, firePosition.position, Quaternion.identity);
+                bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject);
+
+                if (_firePosition != null)
+                {
+                    bullet.transform.forward = (player.position - _firePosition.position).normalized;
+                }
+                else
+                {
+                    bullet.transform.forward = transform.forward;
+                }
+                
+
+            }
+
+        }
+    }
+
+    private void Fire()
+    {
+        float diff = Random.Range(0.0f, _diffRange);
+        _coolTimer = _characterBase.CoolTime + diff;
+        Transform route = _keepInView.DesiredPosition;
+        Transform firePosition = transform;
+        if (_firePosition != null)
+        {
+            firePosition = _firePosition;
+        }
+        GameObject bullet = Instantiate(_bullet, firePosition.position, Quaternion.identity, route);
+        bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject, route);
+        if (_firePosition != null)
+        {
+            bullet.transform.forward = (player.position - _firePosition.position).normalized;
+        }
+        else
+        {
+            bullet.transform.forward = transform.forward;
         }
     }
 }

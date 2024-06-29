@@ -7,10 +7,15 @@ public class ProtoPlayerMove : MonoBehaviour
     [SerializeField] private float _horizontallySup = 4.5f;
     [SerializeField] private float _varticalSup = 2.0f;
     private float _speed;
+
+    private void Awake()
+    {
+        SceneController.Instance.Initializa();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        SceneController.Instance.Initializa();
         if (characterBase != null)
         {
             _speed = characterBase.Agi;

@@ -101,6 +101,7 @@ public class CharacterBase : MonoBehaviour
             {
                 DamageFlush(_damageFlushColor);
             }
+            Debug.Log(_currentHp);
         }          
     }
 

@@ -112,10 +112,18 @@ public class KeepInView : MonoBehaviour
         }
     }
 
-    public void ActivateKeepInView(GameObject target, Transform position)
+    public void ActivateKeepInView(GameObject target, Transform position, float smoothTime_ = -1, float distanceFromPlayer_ = 0)
     {
         player = target;
         desiredPosition = position;
+        if(smoothTime_ > 0)
+        {
+            smoothTime = smoothTime_;
+        }
+        if (distanceFromPlayer_ != 0.0f)
+        {
+            distanceFromPlayer = distanceFromPlayer_;
+        }
         isActive = true;
     }
 

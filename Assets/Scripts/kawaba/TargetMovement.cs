@@ -11,7 +11,7 @@ public class TargetMovement : MonoBehaviour
     public float distanceFromPlayer = 10f; // プレイヤーからの距離
     public float movementSpeed = 2f; // ターゲットの移動速度
     public float movementRange = 5f; // ターゲットの移動範囲
-    public float minDistanceBetweenTargets = 3f; // ターゲット同士の最小距離
+    public float minDistanceBetweenTargets = 12f; // ターゲット同士の最小距離
     public float maxMovementChangeInterval = 3f; // 移動変更の最大間隔
     public float homingDuration = 5f; // ホーミングの持続時間
     public float homingSpeed = 5f; // ホーミング時の速度

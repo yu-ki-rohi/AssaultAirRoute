@@ -407,7 +407,7 @@ MonoBehaviour:
   distanceFromPlayer: 8
   movementSpeed: 4
   movementRange: 5
-  minDistanceBetweenTargets: 8
+  minDistanceBetweenTargets: 10
   maxMovementChangeInterval: 3
   homingDuration: 600
   homingSpeed: 5
@@ -872,7 +872,7 @@ MonoBehaviour:
   distanceFromPlayer: 8
   movementSpeed: 4
   movementRange: 5
-  minDistanceBetweenTargets: 8
+  minDistanceBetweenTargets: 10
   maxMovementChangeInterval: 3
   homingDuration: 600
   homingSpeed: 5
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   distanceFromPlayer: 8
   movementSpeed: 4
   movementRange: 5
-  minDistanceBetweenTargets: 8
+  minDistanceBetweenTargets: 10
   maxMovementChangeInterval: 3
   homingDuration: 600
   homingSpeed: 5
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   distanceFromPlayer: 8
   movementSpeed: 4
   movementRange: 5
-  minDistanceBetweenTargets: 8
+  minDistanceBetweenTargets: 10
   maxMovementChangeInterval: 3
   homingDuration: 600
   homingSpeed: 5
@@ -1921,7 +1921,7 @@ MonoBehaviour:
   distanceFromPlayer: 8
   movementSpeed: 4
   movementRange: 5
-  minDistanceBetweenTargets: 8
+  minDistanceBetweenTargets: 10
   maxMovementChangeInterval: 3
   homingDuration: 600
   homingSpeed: 5
