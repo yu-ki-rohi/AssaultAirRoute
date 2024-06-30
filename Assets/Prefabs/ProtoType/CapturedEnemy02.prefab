@@ -249,7 +249,7 @@ MonoBehaviour:
   coolTime: 0.2
   existTime: 10
   moveSpeed: 10
-  diff: 0.04
+  diff: 0.03
   explosion: {fileID: 7484421743215390569, guid: 7d0f1215a9b886948a5e4827df2d062e,
     type: 3}
   figure:

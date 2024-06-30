@@ -19,7 +19,7 @@ MonoBehaviour:
   ATK_SPECIAL: 40
   DRAIN: 0
   AGI: 5
-  BOUNTY: 5
+  BOUNTY: 100
   COOLTIME: 2
   _maxHP: 100
   _attack: 10
@@ -28,5 +28,5 @@ MonoBehaviour:
   _attackSpecial: 40
   _drain: 0
   _agility: 5
-  _bounty: 5
+  _bounty: 100
   _coolTime: 2

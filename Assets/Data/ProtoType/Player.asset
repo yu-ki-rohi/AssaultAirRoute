@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   MAXHP: 100
-  ATK: 50
-  ATK_SUB1: 5
-  ATK_SUB2: 5
+  ATK: 100
+  ATK_SUB1: 30
+  ATK_SUB2: 30
   ATK_SPECIAL: 0
   DRAIN: 2
   AGI: 5
-  BOUNTY: 50
+  BOUNTY: 1000
   COOLTIME: 0.2
   _maxHP: 100
-  _attack: 50
-  _attackSub1: 5
-  _attackSub2: 5
+  _attack: 100
+  _attackSub1: 30
+  _attackSub2: 30
   _attackSpecial: 0
   _drain: 2
   _agility: 5

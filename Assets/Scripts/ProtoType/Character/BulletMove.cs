@@ -55,30 +55,29 @@ public class BulletMove : MonoBehaviour
         }
         if(other.tag == "Enemy" && _attacker.tag == "Player")
         {
-            if(other.TryGetComponent(out CharacterBase enemyBase))
+            CharacterBase characterBase = other.GetComponentInParent<CharacterBase>();
+            if (characterBase != null)
             {
-                enemyBase.Damage(_power, _attacker, _isCaptureBullet);
+                characterBase.Damage(_power, _attacker, _isCaptureBullet);
                 Destroy(gameObject);
             }
-            else
-            {
-                CharacterBase characterBase = other.GetComponentInParent<CharacterBase>();
-                if(characterBase != null)
-                {
-                    characterBase.Damage(_power, _attacker, _isCaptureBullet);
-                    Destroy(gameObject);
-                }
-            }
+        }
+
+        if (other.tag == "Obstacle" && _attacker.tag == "Player")
+        {
+            Destroy(gameObject);
         }
 
         if (other.tag == "Player" && _attacker.tag == "Enemy")
         {
-            if (other.TryGetComponent(out CharacterBase player))
+            CharacterBase characterBase = other.GetComponentInParent<CharacterBase>();
+            if (characterBase != null)
             {
-                player.Damage(_power, _attacker);
+                characterBase.Damage(_power, _attacker);
                 Destroy(gameObject);
             }
         }
+        
     }
 
 }

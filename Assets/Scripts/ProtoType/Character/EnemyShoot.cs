@@ -8,6 +8,7 @@ public class EnemyShoot : MonoBehaviour
     [SerializeField] private CharacterBase _characterBase;
     [SerializeField] private Transform _firePosition;
     [SerializeField] private Transform _fireTarget;
+    [SerializeField] private bool _lookAtTarget = true;
     [SerializeField] private GameObject _bullet;
     [SerializeField, Range(0.0f, 5.0f)] private float _diffRange = 0.5f;
     [SerializeField] private BulletSetting _bulletSetting;
@@ -41,7 +42,7 @@ public class EnemyShoot : MonoBehaviour
                 }
             }
             
-            if(_fireTarget != null)
+            if(_fireTarget != null && _lookAtTarget)
             {
                 transform.LookAt(_fireTarget.position);
             }
@@ -49,7 +50,11 @@ public class EnemyShoot : MonoBehaviour
         }
         else
         {
-            transform.LookAt(player, Vector3.up);
+            if(_lookAtTarget)
+            {
+                transform.LookAt(player, Vector3.up);
+            }
+            
         }
         
 

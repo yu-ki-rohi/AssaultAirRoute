@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06b294eed693f045892519194deca65, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  MAXHP: 5000
+  MAXHP: 3000
   ATK: 10
   ATK_SUB1: 0
   ATK_SUB2: 0
   ATK_SPECIAL: 0
   DRAIN: 0
   AGI: 5
-  BOUNTY: 100
+  BOUNTY: 800
   COOLTIME: 1
-  _maxHP: 5000
+  _maxHP: 3000
   _attack: 10
   _attackSub1: 0
   _attackSub2: 0
   _attackSpecial: 0
   _drain: 0
   _agility: 5
-  _bounty: 100
+  _bounty: 800
   _coolTime: 1
