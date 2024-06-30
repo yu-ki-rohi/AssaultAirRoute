@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float speed = 3f; // ˆÚ“®‘¬“x
-    public float tiltAmount = 15f; // ŒX‚«‚ÌŠp“x
-    public float tiltSpeed = 10f; // ŒX‚­‘¬“x
+    public float speed = 3f; // ç§»å‹•é€Ÿåº¦
+    public float tiltAmount = 15f; // å‚¾ãã®è§’åº¦
+    public float tiltSpeed = 10f; // å‚¾ãé€Ÿåº¦
 
-    private float targetTilt = 0f; // –Ú•W‚ÌŒX‚«
+    private float targetTilt = 0f; // ç›®æ¨™ã®å‚¾ã
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        // ã‰º¶‰E‚Ì“ü—Í‚Ìæ“¾iWASDƒL[j
+        // ä¸Šä¸‹å·¦å³ã®å…¥åŠ›ã®å–å¾—ï¼ˆWASDã‚­ãƒ¼ï¼‰
         float horizontalInput = 0f;
         float verticalInput = 0f;
 
@@ -38,19 +38,19 @@ public class PlayerMove : MonoBehaviour
             horizontalInput += 1f;
         }
 
-        // ˆÚ“®ƒxƒNƒgƒ‹‚ÌŒvZ
+        // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã®è¨ˆç®—
         Vector3 movement = new Vector3(horizontalInput, verticalInput, 0f) * speed * Time.deltaTime;
 
-        // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğXV
-        transform.Translate(movement, Space.World); // Space.World‚ğw’è‚µ‚ÄAƒ[ƒ‹ƒhÀ•WŒn‚ÅˆÚ“®‚·‚é
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’æ›´æ–°
+        transform.Translate(movement, Space.World); // Space.Worldã‚’æŒ‡å®šã—ã¦ã€ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»ã§ç§»å‹•ã™ã‚‹
 
-        // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğ‰æ–Ê“à‚É§ŒÀ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’ç”»é¢å†…ã«åˆ¶é™
         Vector3 newPosition = transform.position;
-        newPosition.x = Mathf.Clamp(newPosition.x, -3.84f, 3.49f); // ‰æ–Ê‚Ì¶‰E’[‚ÌÀ•W‚É§ŒÀ
-        newPosition.y = Mathf.Clamp(newPosition.y, -0.8f, 1.66f); // ‰æ–Ê‚Ìã‰º’[‚ÌÀ•W‚É§ŒÀ
+        newPosition.x = Mathf.Clamp(newPosition.x, -3.84f, 3.49f); // ç”»é¢ã®å·¦å³ç«¯ã®åº§æ¨™ã«åˆ¶é™
+        newPosition.y = Mathf.Clamp(newPosition.y, -0.8f, 1.66f); // ç”»é¢ã®ä¸Šä¸‹ç«¯ã®åº§æ¨™ã«åˆ¶é™
         transform.position = newPosition;
 
-        // …•½“ü—Í‚ÉŠî‚Ã‚¢‚ÄZ²‚ğŒX‚¯‚é
+        // æ°´å¹³å…¥åŠ›ã«åŸºã¥ã„ã¦Zè»¸ã‚’å‚¾ã‘ã‚‹
         targetTilt = -horizontalInput * tiltAmount;
         float tilt = Mathf.LerpAngle(transform.localEulerAngles.z, targetTilt, Time.deltaTime * tiltSpeed);
         transform.localRotation = Quaternion.Euler(0f, 0f, tilt);
