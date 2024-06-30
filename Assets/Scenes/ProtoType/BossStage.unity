@@ -2216,7 +2216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942614802}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b431c4a770b2d242b2537d1aa247fbf, type: 3}
   m_Name: 
@@ -2232,6 +2232,7 @@ MonoBehaviour:
   _player: {fileID: 1869240731}
   _desiredPosition: {fileID: 295609761}
   _characterBase: {fileID: 9015428898010837842}
+  _summonPosition: {fileID: 0}
   _parent: {fileID: 0}
 --- !u!1 &969183158
 GameObject:
@@ -5682,6 +5683,7 @@ GameObject:
   - component: {fileID: 9015428898010837841}
   - component: {fileID: 9015428898010837844}
   - component: {fileID: 9015428898010837845}
+  - component: {fileID: 9015428898010837846}
   - component: {fileID: 9015428898010837842}
   - component: {fileID: 8960448602619108653}
   - component: {fileID: 9015428898010837843}
@@ -7903,6 +7905,31 @@ MonoBehaviour:
     useSetting: 0
     speed: 20
     existTime: 5
+--- !u!114 &9015428898010837846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009494267503784515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b431c4a770b2d242b2537d1aa247fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemies:
+  - {fileID: 5007562673914617488, guid: 6cb88fb7073b1bc4f9b801e1a1521fc3, type: 3}
+  - {fileID: 5017278353016454304, guid: dd63f455420f58941b9cb24011f5e225, type: 3}
+  _coolTime: 7
+  _summonStartRate: 0.9
+  _smoothTime: 2
+  _baseDistanceFromPlayer: 20
+  _buffer: 5
+  _player: {fileID: 1869240731}
+  _desiredPosition: {fileID: 295609761}
+  _characterBase: {fileID: 9015428898010837842}
+  _summonPosition: {fileID: 942614803}
+  _parent: {fileID: 0}
 --- !u!4 &9015440919931104241
 Transform:
   m_ObjectHideFlags: 0

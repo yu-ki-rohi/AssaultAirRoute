@@ -13,6 +13,7 @@ public class SummonEnemy : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] private Transform _desiredPosition;
     [SerializeField] private CharacterBase _characterBase;
+    [SerializeField] private Transform _summonPosition;
     [SerializeField] private Transform _parent;
     private float _coolTimer = 0.0f;
 
@@ -52,13 +53,20 @@ public class SummonEnemy : MonoBehaviour
 
         int id = Random.Range(0, _enemies.Length);
         GameObject enemy;
+
+        Transform summonPosition = transform;
+        if(_summonPosition != null)
+        {
+            summonPosition = _summonPosition;
+        }
+
         if (_parent != null)
         {
-            enemy = Instantiate(_enemies[id], transform.position, Quaternion.identity, _parent);
+            enemy = Instantiate(_enemies[id], summonPosition.position, Quaternion.identity, _parent);
         }
         else
         {
-            enemy = Instantiate(_enemies[id], transform.position, Quaternion.identity);
+            enemy = Instantiate(_enemies[id], summonPosition.position, Quaternion.identity);
         }
         
 
