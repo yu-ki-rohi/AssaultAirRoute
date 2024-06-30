@@ -24,7 +24,7 @@ public class CharacterBase : MonoBehaviour
     public int Atk { get { return _data.ATK; } }
     public int AtkSub01 { get { return _data.ATK_SUB1; } }
     public int AtkSub02 { get { return _data.ATK_SUB2; } }
-    public int SpecialAtk { get { return _data.ATK_SPECIAL; } }
+    public int AtkSpecial { get { return _data.ATK_SPECIAL; } }
     public float CoolTime { get { return _data.COOLTIME; } }
     public float Agi { get { return _data.AGI; } }
 

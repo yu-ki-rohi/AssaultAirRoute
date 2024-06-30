@@ -21,8 +21,12 @@ public class Shoot : MonoBehaviour
 
     [SerializeField] private Transform capturePosParent;
     [SerializeField] private Transform[] capturePos;
+    [SerializeField] private BulletSetting _bulletSetting = new BulletSetting();
+    [SerializeField] private BulletSetting _captureBulletSetting = new BulletSetting();
 
     public Transform Route { get { return route; } }
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -58,14 +62,24 @@ public class Shoot : MonoBehaviour
                     timer = coolTime;
                     Vector3 adjustment = (target.transform.position - firePosition.position).normalized * firePositionAdjustment;
                     GameObject gameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
-                    gameObject.GetComponent<BulletMove>().Init(characterBase.Atk, player, route);
+                    BulletMove bulletMove = gameObject.AddComponent<BulletMove>();
+                    bulletMove.Init(characterBase.Atk, player, route);
+                    if(_bulletSetting.useSetting)
+                    {
+                        bulletMove.Setting(_bulletSetting.speed, _bulletSetting.existTime);
+                    }
                     gameObject.transform.forward = -transform.right;
                     if(characterBase.AtkSub01 > 0)
                     {                      
                         for (int i = -1; i < 2; i += 2)
                         {
                             GameObject subGameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
-                            subGameObject.GetComponent<BulletMove>().Init(characterBase.AtkSub01, player, route);
+                            BulletMove subBulletMove = subGameObject.AddComponent<BulletMove>();
+                            subBulletMove.Init(characterBase.AtkSub01, player, route);
+                            if (_bulletSetting.useSetting)
+                            {
+                                subBulletMove.Setting(_bulletSetting.speed, _bulletSetting.existTime);
+                            }
                             subGameObject.transform.forward = (-transform.right + transform.up * verticalRange * i).normalized;
                         }
                     }
@@ -74,7 +88,12 @@ public class Shoot : MonoBehaviour
                         for (int i = -1; i < 2; i += 2)
                         {
                             GameObject subGameObject = Instantiate(bullet, firePosition.position + adjustment, Quaternion.identity, route);
-                            subGameObject.GetComponent<BulletMove>().Init(characterBase.AtkSub02, player, route);
+                            BulletMove subBulletMove = subGameObject.AddComponent<BulletMove>();
+                            subBulletMove.Init(characterBase.AtkSub02, player, route);
+                            if (_bulletSetting.useSetting)
+                            {
+                                subBulletMove.Setting(_bulletSetting.speed, _bulletSetting.existTime);
+                            }
                             subGameObject.transform.forward = (-transform.right + transform.forward * horizontallyRange * i).normalized;
                         }
                     }
@@ -88,7 +107,12 @@ public class Shoot : MonoBehaviour
                     timer = coolTime;
                     Vector3 adjustment = (target.transform.position - firePosition.position).normalized * firePositionAdjustment;
                     GameObject gameObject = Instantiate(captureBullet, firePosition.position + adjustment, Quaternion.identity, route);
-                    gameObject.GetComponent<BulletMove>().Init(characterBase.Atk / 2, player, route, true);
+                    BulletMove bulletMove = gameObject.AddComponent<BulletMove>();
+                    bulletMove.Init(characterBase.Atk / 2, player, route, true);
+                    if (_captureBulletSetting.useSetting)
+                    {
+                        bulletMove.Setting(_captureBulletSetting.speed, _captureBulletSetting.existTime);
+                    }
                     gameObject.transform.forward = -transform.right;
                 }
             }
@@ -114,4 +138,5 @@ public class Shoot : MonoBehaviour
         }
     }
 
+   
 }

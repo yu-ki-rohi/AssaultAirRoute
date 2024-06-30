@@ -210,7 +210,7 @@ public class TargetMovement : MonoBehaviour
             {
                 if (collision.gameObject.TryGetComponent(out CharacterBase characterBase))
                 {
-                    characterBase.Damage(_characterBase.SpecialAtk, null);
+                    characterBase.Damage(_characterBase.AtkSpecial, null);
                     _characterBase.Damage(_characterBase.MaxHp, null);
                 }
             }

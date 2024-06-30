@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour
 {
+    [SerializeField] private ReferStatus _referStatus;
     [SerializeField] private CharacterBase _characterBase;
     [SerializeField] private Transform _firePosition;
     [SerializeField] private Transform _fireTarget;
     [SerializeField] private GameObject _bullet;
     [SerializeField, Range(0.0f, 5.0f)] private float _diffRange = 0.5f;
+    [SerializeField] private BulletSetting _bulletSetting;
     private Transform player;
     private KeepInView _keepInView;
     private float _coolTimer;
@@ -21,6 +23,7 @@ public class EnemyShoot : MonoBehaviour
         {
             float diff = Random.Range(0.0f, _diffRange);
             _coolTimer = _characterBase.CoolTime + diff;
+            _referStatus.SetAttacks(_characterBase);
         }
     }
 
@@ -68,7 +71,14 @@ public class EnemyShoot : MonoBehaviour
                     firePosition = _firePosition;
                 }
                 GameObject bullet = Instantiate(_bullet, firePosition.position, Quaternion.identity, route);
-                bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject, route);
+
+                BulletMove bulletMove = bullet.GetComponent<BulletMove>();
+                bulletMove.Init(_referStatus.GetAttack((int)_referStatus._referAttackType), gameObject, route);
+                if(_bulletSetting.useSetting)
+                {
+                    bulletMove.Setting(_bulletSetting.speed, _bulletSetting.existTime);
+                }
+                
                 if (_firePosition != null)
                 {
                     bullet.transform.forward = (player.position - _firePosition.position).normalized;
@@ -97,11 +107,17 @@ public class EnemyShoot : MonoBehaviour
                     firePosition = _firePosition;
                 }
                 GameObject bullet = Instantiate(_bullet, firePosition.position, Quaternion.identity);
-                bullet.GetComponent<BulletMove>().Init(_characterBase.Atk, gameObject);
+
+                BulletMove bulletMove = bullet.GetComponent<BulletMove>();
+                bulletMove.Init(_referStatus.GetAttack((int)_referStatus._referAttackType), gameObject);
+                if (_bulletSetting.useSetting)
+                {
+                    bulletMove.Setting(_bulletSetting.speed, _bulletSetting.existTime);
+                }
 
                 if (_firePosition != null)
                 {
-                    bullet.transform.forward = (player.position - _firePosition.position).normalized;
+                    bullet.transform.forward = (_fireTarget.position - _firePosition.position).normalized;
                 }
                 else
                 {

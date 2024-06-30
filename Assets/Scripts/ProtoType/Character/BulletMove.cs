@@ -5,8 +5,8 @@ using UnityEngine.Windows;
 
 public class BulletMove : MonoBehaviour
 {
-    [SerializeField] private float speed = 10.0f;
-    [SerializeField] private float timer = 3.0f;
+    [SerializeField] private float _speed = 10.0f;
+    [SerializeField] private float _timer = 3.0f;
     private Transform _route;
     private GameObject _attacker;
     private int _power;
@@ -24,10 +24,10 @@ public class BulletMove : MonoBehaviour
     void Update()
     {
 
-        //transform.localPosition += _route.rotation * transform.forward * speed * Time.deltaTime;
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        timer -= Time.deltaTime;
-        if (timer < 0)
+        //transform.localPosition += _route.rotation * transform.forward * _speed * Time.deltaTime;
+        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        _timer -= Time.deltaTime;
+        if (_timer < 0)
         {
             Destroy(gameObject);
         }
@@ -39,6 +39,12 @@ public class BulletMove : MonoBehaviour
         _attacker = attacker;
         _route = route;
         _isCaptureBullet = isCaptureBullet;
+    }
+
+    public void Setting(float speed, float time)
+    {
+        _speed = speed;
+        _timer = time;
     }
 
     private void OnTriggerEnter(Collider other)

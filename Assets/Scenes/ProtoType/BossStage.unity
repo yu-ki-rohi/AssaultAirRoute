@@ -673,17 +673,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170431580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c64ff0d4277d40419b97e308f7e7f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referStatus:
+    _referAttackType: 0
   _bullet: {fileID: 5183983091504828911, guid: e6bd52d7b0729424793ed6d9350f06b0, type: 3}
   _characterBase: {fileID: 9015428898010837842}
   _firePosition: {fileID: 0}
   _bossReticle: {fileID: 1120716590}
   _reticleMove: {fileID: 1120716594}
   _coolTime: 0.25
+  _bulletSetting:
+    useSetting: 0
+    speed: 20
+    existTime: 5
 --- !u!1 &295609759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2516,7 +2522,7 @@ MonoBehaviour:
   _varticalSup: 1.7
   _horizontallyAdjust: 0
   _varticalAdjust: 0.1
-  _aimingSmoothTime: 5
+  _aimingSmoothTime: 3
   _shootingSmoothTime: 1.2
   _buffer: 0.8
 --- !u!1 &1138765896
@@ -2657,16 +2663,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165472143}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a996685c6f6be8040bf08c902a7fcfe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referStatus:
+    _referAttackType: 0
   _characterBase: {fileID: 9015428898010837842}
   _firePosition: {fileID: 0}
   _fireTarget: {fileID: 1869240732}
   _bullet: {fileID: 5183983091504828911, guid: e6bd52d7b0729424793ed6d9350f06b0, type: 3}
   _diffRange: 2.5
+  _bulletSetting:
+    useSetting: 0
+    speed: 20
+    existTime: 5
 --- !u!1 &1176680673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3706,8 +3718,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1869240732}
-  - component: {fileID: 1869240737}
   - component: {fileID: 1869240736}
+  - component: {fileID: 1869240737}
   - component: {fileID: 1869240735}
   - component: {fileID: 1869240734}
   - component: {fileID: 1869240733}
@@ -3824,6 +3836,14 @@ MonoBehaviour:
   player: {fileID: 1869240731}
   capturePosParent: {fileID: 443829287}
   capturePos: []
+  _bulletSetting:
+    useSetting: 0
+    speed: 40
+    existTime: 5
+  _captureBulletSetting:
+    useSetting: 0
+    speed: 30
+    existTime: 5
 --- !u!114 &1869240737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5660,8 +5680,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9015428898010837841}
-  - component: {fileID: 8960448602619108653}
+  - component: {fileID: 9015428898010837844}
+  - component: {fileID: 9015428898010837845}
   - component: {fileID: 9015428898010837842}
+  - component: {fileID: 8960448602619108653}
   - component: {fileID: 9015428898010837843}
   m_Layer: 0
   m_Name: Boss
@@ -7834,6 +7856,53 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &9015428898010837844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009494267503784515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c64ff0d4277d40419b97e308f7e7f37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referStatus:
+    _referAttackType: 0
+  _bullet: {fileID: 5183983091504828911, guid: e6bd52d7b0729424793ed6d9350f06b0, type: 3}
+  _characterBase: {fileID: 9015428898010837842}
+  _firePosition: {fileID: 170431581}
+  _bossReticle: {fileID: 1120716590}
+  _reticleMove: {fileID: 1120716594}
+  _coolTime: 0.25
+  _bulletSetting:
+    useSetting: 0
+    speed: 20
+    existTime: 5
+--- !u!114 &9015428898010837845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009494267503784515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a996685c6f6be8040bf08c902a7fcfe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referStatus:
+    _referAttackType: 0
+  _characterBase: {fileID: 9015428898010837842}
+  _firePosition: {fileID: 1165472144}
+  _fireTarget: {fileID: 1869240732}
+  _bullet: {fileID: 5183983091504828911, guid: e6bd52d7b0729424793ed6d9350f06b0, type: 3}
+  _diffRange: 2
+  _bulletSetting:
+    useSetting: 0
+    speed: 20
+    existTime: 5
 --- !u!4 &9015440919931104241
 Transform:
   m_ObjectHideFlags: 0
