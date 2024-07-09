@@ -8,6 +8,8 @@ TagManager:
   - title
   - Enemy
   - Bullet
+  - Target
+  - Obstacle
   layers:
   - Default
   - TransparentFX

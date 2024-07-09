@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06b294eed693f045892519194deca65, type: 3}
+  m_Name: Enemy02
+  m_EditorClassIdentifier: 
+  MAXHP: 50
+  ATK: 10
+  ATK_SUB1: 0
+  ATK_SUB2: 0
+  ATK_SPECIAL: 40
+  DRAIN: 0
+  AGI: 5
+  BOUNTY: 100
+  COOLTIME: 3
+  _maxHP: 50
+  _attack: 10
+  _attackSub1: 0
+  _attackSub2: 0
+  _attackSpecial: 40
+  _drain: 0
+  _agility: 5
+  _bounty: 100
+  _coolTime: 3
