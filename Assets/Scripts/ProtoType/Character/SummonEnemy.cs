@@ -17,6 +17,12 @@ public class SummonEnemy : MonoBehaviour
     [SerializeField] private Transform _parent;
     private float _coolTimer = 0.0f;
 
+    //【雑魚自爆】
+    // 自爆させる雑魚を管理するためのListを用意してください
+    // privateで良いと思います
+
+    //
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,11 +48,13 @@ public class SummonEnemy : MonoBehaviour
             }
             else
             {
+                // 召還
                 Summon();
             }
         }
     }
 
+    // 召還メソッド
     private void Summon()
     {
         _coolTimer = _coolTime;
@@ -68,7 +76,11 @@ public class SummonEnemy : MonoBehaviour
         {
             enemy = Instantiate(_enemies[id], summonPosition.position, Quaternion.identity);
         }
-        
+
+        //【雑魚自爆】
+        // ここでListに召還したenemyを追加
+
+        //
 
         if (enemy.TryGetComponent(out KeepInView keepInView))
         {
@@ -76,5 +88,16 @@ public class SummonEnemy : MonoBehaviour
             keepInView.ActivateKeepInView(_player, _desiredPosition, _smoothTime, _baseDistanceFromPlayer + diff);
         }
 
+    }
+
+    //【雑魚自爆】
+    // 召還した雑魚を一斉に倒すメソッド
+    public void VanishEnemies(GameObject attacker)
+    {
+        // for文でList内の雑魚を殲滅してください
+        // EnemyBaseにSuicideメソッドを用意したので、
+        // それを使うとよいと思います
+        // 単体の奴と群体の奴で、EnemyBaseを持っている
+        // GameObjectが違う点にご注意ください
     }
 }

@@ -85,7 +85,9 @@ public class CharacterBase : MonoBehaviour
     }
 
     // ダメージを受ける処理
-    // 
+    // power            : 弾の威力
+    // attacke          : 誰からの攻撃か
+    // isCaptureBullet  : 捕獲弾かどうか 
     virtual public void Damage(int power, GameObject attacker, bool isCaptureBullet = false)
     {        
         // HP減少処理

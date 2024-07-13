@@ -45,7 +45,13 @@ public class Player : CharacterBase
 
     protected override void Die(GameObject attacker, bool isCaptureBullet = false)
     {
-        for(int i = 0;  i < _destoryWithPlayer.Length; i++)
+        // ここにプレイヤー敗北時の処理を記述してください
+
+
+        // ここまで
+
+        // 以下の処理は必要に応じて消してください
+        for (int i = 0;  i < _destoryWithPlayer.Length; i++)
         {
             if (_destoryWithPlayer[i] != null)
             {

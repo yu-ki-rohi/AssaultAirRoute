@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BossLineShoot : MonoBehaviour
 {
-
-
+    
     [SerializeField] private ReferStatus _referStatus;
     [SerializeField] private GameObject _bullet;
     [SerializeField] private CharacterBase _characterBase;

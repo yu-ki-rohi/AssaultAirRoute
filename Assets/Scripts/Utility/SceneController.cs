@@ -22,7 +22,7 @@ public class SceneController : Singleton<SceneController>
 
     // Sceneを変更するメソッド
     // Title -> InGame -> Result の順で遷移します
-    // GameManager.Instance.ChangeScene()
+    // SceneController.Instance.ChangeScene()
     // で使用してください
     public void ChangeScene()
     {

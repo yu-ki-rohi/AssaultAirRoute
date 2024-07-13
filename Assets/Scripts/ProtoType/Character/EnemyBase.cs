@@ -28,5 +28,10 @@ public class EnemyBase : CharacterBase
         }
         base.Die(attacker);
     }
-        
+    
+    // 自爆メソッド
+    public void Suicide(GameObject attacker)
+    {
+        base.Damage(_data.MAXHP, attacker);
+    }
 }

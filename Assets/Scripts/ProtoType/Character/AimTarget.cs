@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// 各オブジェクトをプレイヤーに向けさせる
 public class AimTarget : MonoBehaviour
 {
     [SerializeField] Transform _target;
