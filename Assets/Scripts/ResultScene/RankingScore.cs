@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class RankingScore : MonoBehaviour
 {
@@ -9,20 +9,21 @@ public class RankingScore : MonoBehaviour
     int rank;
 
     GameObject ranking;
-    Text scoreText;
+    TextMeshProUGUI scoreText;
     int score;
+
     // Start is called before the first frame update
     void Start()
     {
         ranking = GameObject.Find("Ranking");
         score = ranking.GetComponent<Ranking>().GetScore(rank);
-        scoreText = GetComponentInChildren<Text>();
+        scoreText = GetComponentInChildren<TextMeshProUGUI>();
         scoreText.text = score.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
