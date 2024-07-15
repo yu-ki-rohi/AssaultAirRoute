@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
     private Transform target;
+    public bool SceneCange = false;
 
     void Start()
     {
@@ -37,6 +38,12 @@ public class Bullet : MonoBehaviour
         if(collision.tag=="Enemy")
         {
             Destroy(gameObject);
+        }
+
+        if (collision.tag == "Enemy2")
+        {
+            Destroy(gameObject);
+            SceneCange = true;
         }
     }
 }
