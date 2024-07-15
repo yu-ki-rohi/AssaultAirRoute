@@ -5,9 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
-  public void Retrybutton()
+    void Update()
     {
-        //仮に「InGame」Sceneに飛ぶようにしています
+        // XboxコントローラーのBボタンを押したときにTitleSceneに遷移
+        if (Input.GetButtonDown("Fire2")) // Fire2はデフォルトでBボタンにマッピングされています
+        {
+            ToTitleButton();
+        }
+
+        // XboxコントローラーのAボタンを押したときにInGameSceneに遷移
+        if (Input.GetButtonDown("Fire1")) // Fire1はデフォルトでAボタンにマッピングされています
+        {
+            Retrybutton();
+        }
+    }
+
+    public void Retrybutton()
+    {
+        // 「InGame」Sceneに飛ぶようにしています
         SceneManager.LoadScene("InGameScene");
     }
 

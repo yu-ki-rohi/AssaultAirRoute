@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 275843096}
   - component: {fileID: 275843095}
   m_Layer: 5
-  m_Name: MyRankingNumbertxt (2)
+  m_Name: Menutxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 1132476251}
   - component: {fileID: 1132476250}
   m_Layer: 5
-  m_Name: MyRankingNumbertxt (1)
+  m_Name: ButtonAtxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,7 +1305,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167948950}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f179f49274cf75439f36ec78cf2d979, type: 3}
   m_Name: 
@@ -1608,7 +1608,7 @@ GameObject:
   - component: {fileID: 1548569611}
   - component: {fileID: 1548569610}
   m_Layer: 5
-  m_Name: MyRankingNumbertxt (4)
+  m_Name: Retrytxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1818,50 +1818,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605042690}
   m_CullTransparentMesh: 1
---- !u!1 &1660748268
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1660748270}
-  - component: {fileID: 1660748269}
-  m_Layer: 0
-  m_Name: DataStocker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1660748269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660748268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba687c95a9aae0d489f3f81d5145633e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1660748270
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660748268}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.283001, y: 2.0527973, z: 90}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1800484045
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,7 +2190,7 @@ GameObject:
   - component: {fileID: 2065128081}
   - component: {fileID: 2065128080}
   m_Layer: 5
-  m_Name: MyRankingNumbertxt (3)
+  m_Name: ButtonBtxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2378,6 +2334,5 @@ SceneRoots:
   - {fileID: 1078697540}
   - {fileID: 1991910995}
   - {fileID: 2009531833}
-  - {fileID: 1660748270}
   - {fileID: 670306822}
   - {fileID: 657175541}
