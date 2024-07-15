@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitlePlayer : MonoBehaviour
+public class TitleCorsor : MonoBehaviour
 {
     [SerializeField]
     private Transform cameraTransform; // カメラのTransformを設定
@@ -16,11 +16,9 @@ public class TitlePlayer : MonoBehaviour
     public float acceleration = 5f; // 加速度
     [SerializeField]
     private BlinkUI Dis;
-    private Rigidbody rb;
-    
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         // カメラの後ろにオブジェクトを配置
         startPosition = cameraTransform.position - cameraTransform.forward * 2f; // カメラの後ろに2ユニット
         transform.position = startPosition;
@@ -81,7 +79,6 @@ public class TitlePlayer : MonoBehaviour
                 movement += Vector3.right;
             }
 
-            rb.AddForce(movement * acceleration, ForceMode.Acceleration);
 
             Vector3 newPosition = transform.position;
             newPosition.x = Mathf.Clamp(newPosition.x, -3.84f, 3.49f); // 画面の左右端の座標に制限
