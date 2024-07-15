@@ -1,86 +1,70 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerController : MonoBehaviour
 {
-    
-    [SerializeField]private float speed = 50f; // 最大移動速度
-    [SerializeField]private float acceleration = 2f; // 加速度
-    [SerializeField]private float tiltAmount = 0.5f; // 傾きの角度
-    [SerializeField]private float tiltSpeed = 5f; // 傾く速度
-    [SerializeField]private float maxSpeed = 10f;    //最大速度
-    private Vector3 velocity; // 現在の速度
-    private float targetTilt = 0f; // 目標の傾き
-    private Rigidbody rgd;
-
+    public float moveSpeed = 10f; // 移動速度 
+    public float tiltAmount = 15f; // 傾きの角度 
+    public float tiltSpeed = 5f; // 傾きの速度 
+    Vector2 minBounds; // 移動制限の最小値 
+    Vector2 maxBounds; // 移動制限の最大値 
+    private Vector3 moveDirection = Vector3.zero;
+    private Quaternion targetRotation; // ターゲットの回転 
+    private Rigidbody rb;
     void Start()
     {
-        rgd = GetComponent<Rigidbody>();
+        targetRotation = transform.rotation; // 初期の回転を設定 
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false; // 重力を無効化 
+        rb.isKinematic = true; // 物理演算を無効化
     }
-
     void Update()
     {
-        // 上下左右の入力の取得（WASDキー）
-        float horizontalInput = 0f;
-        float verticalInput = 0f;
-
-        if (Input.GetKey(KeyCode.W))
+        MovePlayer();
+    }
+    void MovePlayer()
+    {
+        // キーボード入力による移動方向の取得 
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        // ゲームコントローラーのボタン入力も取得 
+        if (Input.GetButton("GamepadLeft"))
+            moveHorizontal = -1;
+        else if (Input.GetButton("GamepadRight"))
+            moveHorizontal = 1;
+        if (Input.GetButton("GamepadUp"))
+            moveVertical = 1;
+        else if (Input.GetButton("GamepadDown"))
+            moveVertical = -1;
+        // 最終的な移動方向を計算 
+        moveDirection = new Vector3(moveHorizontal, moveVertical, 0).normalized;
+        if (moveDirection.magnitude >= 0.1f)
+        // 有効な入力がある場合にのみ処理 
         {
-            verticalInput += speed;
+            // プレイヤーの新しい位置を計算 
+            Vector3 newPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime;
+            // 新しい位置を指定範囲内に制限 
+            newPosition = ClampPositionToBounds(newPosition);
+            // プレイヤーの位置を設定 
+            transform.position = newPosition;
+            // プレイヤーの傾きの設定 
+            float tilt = moveHorizontal * tiltAmount; targetRotation = Quaternion.Euler(0, 0, -tilt);
         }
-        if (Input.GetKey(KeyCode.S))
+        else
         {
-            verticalInput -= speed;
+            // 入力がない場合は水平に戻す 
+            targetRotation = Quaternion.Euler(0, 0, 0);
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            horizontalInput -= speed;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            horizontalInput += speed;
-        }
-
-        // 入力方向のベクトル
-        Vector3 inputDirection = new Vector3(horizontalInput, verticalInput, 0f).normalized;
-
-        // 加速度を適用
-        velocity += inputDirection * acceleration * Time.deltaTime;
-
-        // 最大速度を制限
-        velocity = Vector3.ClampMagnitude(velocity, speed);
-        velocity = rgd.velocity;
-        speed = velocity.magnitude;
-
-        // 速度が上限を超えている場合
-        if (speed > maxSpeed)
-        {
-            // 速度ベクトルを正規化し、制限速度でスカラー倍
-            Vector3 limitedVelocity = velocity.normalized * maxSpeed;
-
-            // 速度を設定
-            rgd.velocity = limitedVelocity;
-        }
-        // プレイヤーの位置を更新
-        transform.Translate(velocity * Time.deltaTime, Space.World);
-
-        // プレイヤーの位置を画面内に制限
-        Vector3 newPosition = transform.position;
-        newPosition.x = Mathf.Clamp(newPosition.x, -5.61f, 5.62f); // 画面の左右端の座標に制限
-        newPosition.y = Mathf.Clamp(newPosition.y, -0.5954228f, 3.0f); // 画面の上下端の座標に制限
-        transform.position = newPosition;
-
-
-        // 水平入力に基づいてZ軸を傾ける
-        targetTilt = -horizontalInput * tiltAmount;
-        float tilt = Mathf.LerpAngle(transform.localEulerAngles.z, targetTilt, Time.deltaTime * tiltSpeed);
-        transform.localRotation = Quaternion.Euler(0f, 0f, tilt);
-
-        // 入力がない場合、速度を減衰させる
-        if (inputDirection == Vector3.zero)
-        {
-            velocity = Vector3.Lerp(velocity, Vector3.zero, Time.deltaTime * acceleration);
-        }
+        // 傾きを適用 
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, tiltSpeed * Time.deltaTime);
+    }
+    Vector3 ClampPositionToBounds(Vector3 position)
+    {
+        minBounds.x = -5.63f;
+        minBounds.y = -1.71f;
+        maxBounds.x = 5.79f;
+        maxBounds.y = 1.88f;
+        // 指定範囲内に位置を制限 
+        float clampedX = Mathf.Clamp(position.x, minBounds.x, maxBounds.x);
+        float clampedY = Mathf.Clamp(position.y, minBounds.y, maxBounds.y);
+        return new Vector3(clampedX, clampedY, position.z);
     }
 }
