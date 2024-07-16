@@ -45,14 +45,18 @@ public class Player : CharacterBase
 
     protected override void Die(GameObject attacker, bool isCaptureBullet = false)
     {
-        for(int i = 0;  i < _destoryWithPlayer.Length; i++)
+        //for(int i = 0;  i < _destoryWithPlayer.Length; i++)
+        //{
+        //    if (_destoryWithPlayer[i] != null)
+        //    {
+        //        Destroy(_destoryWithPlayer[i]);
+        //    }
+        //}
+        //base.Die(attacker);
+        if (_currentHp <= 0) 
         {
-            if (_destoryWithPlayer[i] != null)
-            {
-                Destroy(_destoryWithPlayer[i]);
-            }
+
         }
-        base.Die(attacker);
     }
 
     public void AddBounty(int bounty)

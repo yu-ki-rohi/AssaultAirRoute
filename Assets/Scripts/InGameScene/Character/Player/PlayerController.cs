@@ -1,7 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 10f; // 移動速度 
+    public float Speed = 0.07f; // 移動速度 
+    private Vector3 _velocity;
     public float tiltAmount = 15f; // 傾きの角度 
     public float tiltSpeed = 5f; // 傾きの速度 
     Vector2 minBounds; // 移動制限の最小値 
@@ -14,48 +20,22 @@ public class PlayerController : MonoBehaviour
         targetRotation = transform.rotation; // 初期の回転を設定 
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false; // 重力を無効化 
-        rb.isKinematic = true; // 物理演算を無効化
     }
     void Update()
     {
-        MovePlayer();
+        // オブジェクト移動
+        transform.position += _velocity * Speed;
+        
     }
-    void MovePlayer()
+    public void OnPlayerMove(InputAction.CallbackContext context)
     {
-        // キーボード入力による移動方向の取得 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        // ゲームコントローラーのボタン入力も取得 
-        if (Input.GetButton("GamepadLeft"))
-            moveHorizontal = -1;
-        else if (Input.GetButton("GamepadRight"))
-            moveHorizontal = 1;
-        if (Input.GetButton("GamepadUp"))
-            moveVertical = 1;
-        else if (Input.GetButton("GamepadDown"))
-            moveVertical = -1;
-        // 最終的な移動方向を計算 
-        moveDirection = new Vector3(moveHorizontal, moveVertical, 0).normalized;
-        if (moveDirection.magnitude >= 0.1f)
-        // 有効な入力がある場合にのみ処理 
-        {
-            // プレイヤーの新しい位置を計算 
-            Vector3 newPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime;
-            // 新しい位置を指定範囲内に制限 
-            newPosition = ClampPositionToBounds(newPosition);
-            // プレイヤーの位置を設定 
-            transform.position = newPosition;
-            // プレイヤーの傾きの設定 
-            float tilt = moveHorizontal * tiltAmount; targetRotation = Quaternion.Euler(0, 0, -tilt);
-        }
-        else
-        {
-            // 入力がない場合は水平に戻す 
-            targetRotation = Quaternion.Euler(0, 0, 0);
-        }
-        // 傾きを適用 
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, tiltSpeed * Time.deltaTime);
+        // MoveActionの入力値を取得
+        var axis = context.ReadValue<Vector2>();
+
+        // 移動速度を保持
+        _velocity = new Vector3(axis.x, axis.y, 0);
     }
+
     Vector3 ClampPositionToBounds(Vector3 position)
     {
         minBounds.x = -5.63f;
