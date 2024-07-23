@@ -1,68 +1,68 @@
 // yu-ki-tohi
-// 以下のソースコードを使用
+// 莉･荳九�ｮ繧ｽ繝ｼ繧ｹ繧ｳ繝ｼ繝峨ｒ菴ｿ逕ｨ
 // https://github.com/Unity-Technologies/game-programming-patterns-demo/blob/main/Assets/8%20Singleton/Scripts/Pattern/Singleton.cs
 
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Component
-{
-    private static T _instance;
-    public static T Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = (T)FindObjectOfType(typeof(T));
+//public class Singleton<T> : MonoBehaviour where T : Component
+//{
+//    private static T _instance;
+//    public static T Instance
+//    {
+//        get
+//        {
+//            if (_instance == null)
+//            {
+//                _instance = (T)FindObjectOfType(typeof(T));
 
-                if (_instance == null)
-                {
-                    SetupInstance();
-                }
-                else
-                {
-                    string typeName = typeof(T).Name;
+//                if (_instance == null)
+//                {
+//                    SetupInstance();
+//                }
+//                else
+//                {
+//                    string typeName = typeof(T).Name;
 
-                    Debug.Log("[Singleton] " + typeName + " instance already created: " +
-                        _instance.gameObject.name);
-                }
-            }
+//                    Debug.Log("[Singleton] " + typeName + " instance already created: " +
+//                        _instance.gameObject.name);
+//                }
+//            }
 
-            return _instance;
-        }
-    }
+//            return _instance;
+//        }
+//    }
 
-    public virtual void Awake()
-    {
-        RemoveDuplicates();
+//    public virtual void Awake()
+//    {
+//        RemoveDuplicates();
 
-    }
+//    }
 
-    private static void SetupInstance()
-    {
-        // lazy instantiation
-        _instance = (T)FindObjectOfType(typeof(T));
+//    private static void SetupInstance()
+//    {
+//        // lazy instantiation
+//        _instance = (T)FindObjectOfType(typeof(T));
 
-        if (_instance == null)
-        {
-            GameObject gameObj = new GameObject();
-            gameObj.name = typeof(T).Name;
+//        if (_instance == null)
+//        {
+//            GameObject gameObj = new GameObject();
+//            gameObj.name = typeof(T).Name;
 
-            _instance = gameObj.AddComponent<T>();
-            DontDestroyOnLoad(gameObj);
-        }
-    }
+//            _instance = gameObj.AddComponent<T>();
+//            DontDestroyOnLoad(gameObj);
+//        }
+//    }
 
-    private void RemoveDuplicates()
-    {
-        if (_instance == null)
-        {
-            _instance = this as T;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-}
+//    private void RemoveDuplicates()
+//    {
+//        if (_instance == null)
+//        {
+//            _instance = this as T;
+//            DontDestroyOnLoad(gameObject);
+//        }
+//        else
+//        {
+//            Destroy(gameObject);
+//        }
+//    }
+//}
