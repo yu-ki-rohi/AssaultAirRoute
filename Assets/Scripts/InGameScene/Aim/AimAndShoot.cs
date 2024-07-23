@@ -10,6 +10,9 @@ public class AimAndShoot : MonoBehaviour
     public float idleTimeThreshold = 0.1f; // 入力がなかったとみなす時間（秒）
     public float bulletSpeed = 25f; // 弾の速度
 
+    [SerializeField]
+    private BlinkUI Dis;
+
     private float lastInputTime; // 最後に入力があった時間
 
     void Update()
@@ -25,15 +28,15 @@ public class AimAndShoot : MonoBehaviour
             Vector3 inputDirection = new Vector3(horizontalInput, verticalInput, 0).normalized;
             transform.position += inputDirection * manualMoveSpeed * Time.deltaTime;
         }
-        else if (Time.time - lastInputTime >= idleTimeThreshold)
-        {
-            // 一定時間入力がなかった場合、滑らかにターゲットに向かって移動
-            Vector3 targetPosition = target.transform.position;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, autoMoveSpeed * Time.deltaTime);
-        }
+        //else if (Time.time - lastInputTime >= idleTimeThreshold)
+        //{
+        //    // 一定時間入力がなかった場合、滑らかにターゲットに向かって移動
+        //    Vector3 targetPosition = target.transform.position;
+        //    transform.position = Vector3.Lerp(transform.position, targetPosition, autoMoveSpeed * Time.deltaTime);
+        //}
 
         // スペースキーが押された場合、弾を発射
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Dis.UIBlinkdisappear)
         {
             Shoot();
         }
