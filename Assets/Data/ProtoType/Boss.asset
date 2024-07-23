@@ -21,7 +21,7 @@ MonoBehaviour:
   AGI: 5
   BOUNTY: 800
   COOLTIME: 1
-  _maxHP: 3000
+  _maxHP: 500
   _attack: 10
   _attackSub1: 0
   _attackSub2: 0

@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InGameScene.unity
     guid: c2d9b9c6a95c1f141b55b11ae6fc3934
+  - enabled: 1
+    path: Assets/Scenes/ProtoType/HiraokaStage 1.unity
+    guid: 6a05157b023fb8644884e9399f2d92b2
+  - enabled: 1
+    path: Assets/Scenes/ProtoType/BossStage.unity
+    guid: f37f0a5e0ef665445ab35da665c4c54e
   m_configObjects: {}

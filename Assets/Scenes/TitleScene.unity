@@ -489,8 +489,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a37ad058f63b51409620181a5b1f5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerData: {fileID: 0}
-  _enemyDatas: []
+  _playerData: {fileID: 11400000, guid: c404ac6d3dd9c3e42a8b7d43f3a231c5, type: 2}
+  _enemyDatas:
+  - {fileID: 11400000, guid: 4aa1e0adaf6c7c34a95d79de46ba16d1, type: 2}
+  - {fileID: 11400000, guid: e32b055efab451949a22ef37f8868d00, type: 2}
+  - {fileID: 11400000, guid: c704e6a365195e648a367b7d2beeaeab, type: 2}
 --- !u!4 &444772894
 Transform:
   m_ObjectHideFlags: 0

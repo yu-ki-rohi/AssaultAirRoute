@@ -61,7 +61,7 @@ public class BossReticleMove : MonoBehaviour
         
         if (distance < _buffer)
         {
-            ChangeTargetPosition();
+           ChangeTargetPosition();
         }
     }
 

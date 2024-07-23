@@ -17,8 +17,7 @@ public class SceneController : Singleton<SceneController>
     [SerializeField] private CharacterData _playerData;
     [SerializeField] private CharacterData[] _enemyDatas;
 
-
-    private Scene _currentScene = Scene.Title;
+    private Scene _currentScene = Scene.InGame;
 
     // Sceneを変更するメソッド
     // Title -> InGame -> Result の順で遷移します
@@ -34,7 +33,7 @@ public class SceneController : Singleton<SceneController>
                 // ゲーム開始前にデータを初期化
                 Initializa();
 
-                SceneManager.LoadScene("InGameScene");
+                SceneManager.LoadScene("HiraokaStage 1");
                 break;
             case Scene.InGame:
                 _currentScene = Scene.Result;
@@ -46,10 +45,12 @@ public class SceneController : Singleton<SceneController>
                 break;
             default:
                 break;
-        }
-    
+        }   
     }
-
+    public void ChangeBoss()
+    {
+        SceneManager.LoadScene("BossStage");
+    }
     public void ReStart()
     {
         if(_currentScene == Scene.InGame)
@@ -61,7 +62,7 @@ public class SceneController : Singleton<SceneController>
                 
             }
             // -------------
-            SceneManager.LoadScene("InGameScene");
+            SceneManager.LoadScene("HiraokaStage 1");
         }
     }
 

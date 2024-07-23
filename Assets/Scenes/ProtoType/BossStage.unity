@@ -681,7 +681,7 @@ MonoBehaviour:
   _referStatus:
     _referAttackType: 0
   _bullet: {fileID: 5183983091504828911, guid: e6bd52d7b0729424793ed6d9350f06b0, type: 3}
-  _characterBase: {fileID: 9015428898010837842}
+  _characterBase: {fileID: 0}
   _firePosition: {fileID: 0}
   _bossReticle: {fileID: 1120716590}
   _reticleMove: {fileID: 1120716594}
@@ -699,7 +699,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 295609761}
-  - component: {fileID: 295609760}
   m_Layer: 0
   m_Name: Route
   m_TagString: Untagged
@@ -707,20 +706,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &295609760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 295609759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c45d15121e50a247ac752058b393679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rails: []
-  _times: []
 --- !u!4 &295609761
 Transform:
   m_ObjectHideFlags: 0
@@ -2916,6 +2901,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1342489317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &569812834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 569812836}
+  - component: {fileID: 569812835}
+  m_Layer: 0
+  m_Name: SceneController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &569812835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569812834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a37ad058f63b51409620181a5b1f5bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerData: {fileID: 11400000, guid: c404ac6d3dd9c3e42a8b7d43f3a231c5, type: 2}
+  _enemyDatas:
+  - {fileID: 11400000, guid: 4aa1e0adaf6c7c34a95d79de46ba16d1, type: 2}
+  - {fileID: 11400000, guid: e32b055efab451949a22ef37f8868d00, type: 2}
+--- !u!4 &569812836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569812834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -61.5, y: 63.8, z: 435.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596101146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3588,7 +3621,7 @@ MonoBehaviour:
   _buffer: 5
   _player: {fileID: 1869240731}
   _desiredPosition: {fileID: 295609761}
-  _characterBase: {fileID: 9015428898010837842}
+  _characterBase: {fileID: 0}
   _summonPosition: {fileID: 0}
   _parent: {fileID: 0}
 --- !u!1 &969183158
@@ -4083,7 +4116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referStatus:
     _referAttackType: 0
-  _characterBase: {fileID: 9015428898010837842}
+  _characterBase: {fileID: 0}
   _firePosition: {fileID: 0}
   _fireTarget: {fileID: 1869240732}
   _lookAtTarget: 1
@@ -5478,55 +5511,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b9426746a4365c40b24a81f6ad2daea, type: 3}
---- !u!1 &1980045589
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1980045591}
-  - component: {fileID: 1980045590}
-  m_Layer: 0
-  m_Name: SceneController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1980045590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980045589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a37ad058f63b51409620181a5b1f5bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerData: {fileID: 11400000, guid: c404ac6d3dd9c3e42a8b7d43f3a231c5, type: 2}
-  _enemyDatas:
-  - {fileID: 11400000, guid: 4aa1e0adaf6c7c34a95d79de46ba16d1, type: 2}
-  - {fileID: 11400000, guid: e32b055efab451949a22ef37f8868d00, type: 2}
-  - {fileID: 11400000, guid: c704e6a365195e648a367b7d2beeaeab, type: 2}
---- !u!4 &1980045591
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980045589}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61.5, y: 63.8, z: 435.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982411421
 GameObject:
   m_ObjectHideFlags: 0
@@ -7116,7 +7100,7 @@ GameObject:
   - component: {fileID: 9015428898010837844}
   - component: {fileID: 9015428898010837845}
   - component: {fileID: 9015428898010837846}
-  - component: {fileID: 9015428898010837842}
+  - component: {fileID: 9015428898010837847}
   - component: {fileID: 8960448602619108653}
   - component: {fileID: 9015428898010837843}
   m_Layer: 0
@@ -9240,28 +9224,6 @@ Transform:
   - {fileID: 9015491659669249105}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &9015428898010837842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9009494267503784515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa4765ff3811c594a94ecef42b8943a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: c704e6a365195e648a367b7d2beeaeab, type: 2}
-  explosion: {fileID: 7484421743215390569, guid: 7d0f1215a9b886948a5e4827df2d062e,
-    type: 3}
-  _skinnedRenderers: []
-  _meshRenderers:
-  - {fileID: 9033669752869028355}
-  _damageFlushColor: {r: 1, g: 1, b: 1, a: 1}
-  _intensity: 3
-  _returnIntensityRatio: 0.9
-  _caputuredEnemy: {fileID: 0}
 --- !u!54 &9015428898010837843
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9304,7 +9266,7 @@ MonoBehaviour:
   _referStatus:
     _referAttackType: 0
   _bullet: {fileID: 5183983091504828911, guid: e6bd52d7b0729424793ed6d9350f06b0, type: 3}
-  _characterBase: {fileID: 9015428898010837842}
+  _characterBase: {fileID: 9015428898010837847}
   _firePosition: {fileID: 170431581}
   _bossReticle: {fileID: 1120716590}
   _reticleMove: {fileID: 1120716594}
@@ -9327,7 +9289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referStatus:
     _referAttackType: 0
-  _characterBase: {fileID: 9015428898010837842}
+  _characterBase: {fileID: 9015428898010837847}
   _firePosition: {fileID: 1165472144}
   _fireTarget: {fileID: 1869240732}
   _lookAtTarget: 0
@@ -9359,9 +9321,31 @@ MonoBehaviour:
   _buffer: 5
   _player: {fileID: 1869240731}
   _desiredPosition: {fileID: 295609761}
-  _characterBase: {fileID: 9015428898010837842}
+  _characterBase: {fileID: 9015428898010837847}
   _summonPosition: {fileID: 942614803}
   _parent: {fileID: 0}
+--- !u!114 &9015428898010837847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009494267503784515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459e177539ae1f043907e91202846cd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: c704e6a365195e648a367b7d2beeaeab, type: 2}
+  explosion: {fileID: 7484421743215390569, guid: 7d0f1215a9b886948a5e4827df2d062e,
+    type: 3}
+  _skinnedRenderers: []
+  _meshRenderers:
+  - {fileID: 9033669752869028355}
+  _damageFlushColor: {r: 1, g: 1, b: 1, a: 1}
+  _intensity: 3
+  _returnIntensityRatio: 0.9
+  _caputuredEnemy: {fileID: 0}
 --- !u!4 &9015440919931104241
 Transform:
   m_ObjectHideFlags: 0
@@ -10078,8 +10062,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 910774397}
+  - {fileID: 569812836}
   - {fileID: 520054409}
-  - {fileID: 1980045591}
   - {fileID: 1989666507}
   - {fileID: 7503709}
   - {fileID: 1955000495}

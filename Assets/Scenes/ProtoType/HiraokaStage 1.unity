@@ -1322,6 +1322,14 @@ MonoBehaviour:
   player: {fileID: 733259485}
   capturePosParent: {fileID: 1023128086}
   capturePos: []
+  _bulletSetting:
+    useSetting: 0
+    speed: 20
+    existTime: 5
+  _captureBulletSetting:
+    useSetting: 0
+    speed: 20
+    existTime: 5
 --- !u!136 &733259490
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1834,7 +1842,7 @@ MonoBehaviour:
   _rails:
   - {fileID: 1748501915}
   _times:
-  - 40
+  - 10
   - 20
 --- !u!4 &1020416370
 Transform:
@@ -4204,6 +4212,7 @@ MonoBehaviour:
   _enemyDatas:
   - {fileID: 11400000, guid: 4aa1e0adaf6c7c34a95d79de46ba16d1, type: 2}
   - {fileID: 11400000, guid: e32b055efab451949a22ef37f8868d00, type: 2}
+  - {fileID: 11400000, guid: c704e6a365195e648a367b7d2beeaeab, type: 2}
 --- !u!4 &1860301982
 Transform:
   m_ObjectHideFlags: 0

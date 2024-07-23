@@ -32,6 +32,10 @@ public class RouteManager : MonoBehaviour
                 _timer = 0.0f;
             }
         }
+        else
+        {
+            SceneController.Instance.ChangeBoss();
+        }
         
         
     }

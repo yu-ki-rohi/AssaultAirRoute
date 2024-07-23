@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBase : CharacterBase
 {
     [SerializeField] GameObject _caputuredEnemy;
-    override protected void Die(GameObject attacker, bool isCaptureBullet)
+    override protected void Die(GameObject attacker, bool isCaptureBullet = false)
     {
         if (attacker != null)
         {
